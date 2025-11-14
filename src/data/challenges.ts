@@ -51,7 +51,7 @@ export const challenges: Challenge[] = [
       "CSS Custom Properties",
       "CSS Transitions"
     ],
-    startDate: "2024-01-04",
+    startDate: "2026-01-04",
     tech: ["HTML", "CSS"]
   },
   {
@@ -77,7 +77,7 @@ export const challenges: Challenge[] = [
       "DOM Manipulation",
       "CSS Animations"
     ],
-    startDate: "2024-01-07",
+    startDate: "2026-01-07",
     tech: ["HTML", "CSS", "JavaScript"]
   },
   {
@@ -103,7 +103,7 @@ export const challenges: Challenge[] = [
       "Event Handling",
       "String Manipulation"
     ],
-    startDate: "2024-01-10",
+    startDate: "2026-01-10",
     tech: ["HTML", "CSS", "JavaScript"]
   },
   {
@@ -129,7 +129,7 @@ export const challenges: Challenge[] = [
       "Math.random()",
       "CSS Transitions"
     ],
-    startDate: "2024-01-13",
+    startDate: "2026-01-13",
     tech: ["HTML", "CSS", "JavaScript"]
   },
   {
@@ -155,7 +155,7 @@ export const challenges: Challenge[] = [
       "Web Audio API",
       "localStorage"
     ],
-    startDate: "2024-01-16",
+    startDate: "2026-01-16",
     tech: ["HTML", "CSS", "JavaScript"]
   },
   {
@@ -181,7 +181,7 @@ export const challenges: Challenge[] = [
       "Conditional Statements",
       "Game Logic Patterns"
     ],
-    startDate: "2024-01-19",
+    startDate: "2026-01-19",
     tech: ["HTML", "CSS", "JavaScript"]
   }
 ];

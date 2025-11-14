@@ -1,0 +1,25 @@
+---
+import Card from "../ui/Card.astro";
+
+interface Props {
+  tips: string[];
+}
+
+const { tips } = Astro.props;
+---
+
+<Card>
+  <h2 class="text-2xl font-bold text-gray-900 mb-4">💡 Подсказки</h2>
+  <ul class="space-y-3">
+    {
+      tips.map((tip, index) => (
+        <li class="flex items-start space-x-3">
+          <span class="bg-yellow-100 text-yellow-600 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium mt-0.5 flex-shrink-0">
+            {index + 1}
+          </span>
+          <span class="text-gray-700">{tip}</span>
+        </li>
+      ))
+    }
+  </ul>
+</Card>

@@ -1,0 +1,60 @@
+---
+import type { Challenge } from "../../data/types";
+import Card from "../ui/Card.astro";
+
+interface Props {
+  challenge: Challenge;
+}
+
+const { challenge } = Astro.props;
+
+const DIFFICULTY_LABELS = {
+  beginner: "Начинающий",
+  intermediate: "Средний",
+  advanced: "Продвинутый",
+};
+
+const DIFFICULTY_COLORS = {
+  beginner: "text-green-600",
+  intermediate: "text-yellow-600",
+  advanced: "text-red-600",
+};
+
+const META_FIELDS = [
+  {
+    key: "difficulty" as const,
+    label: "Сложность",
+    value: DIFFICULTY_LABELS[challenge.difficulty],
+    color: DIFFICULTY_COLORS[challenge.difficulty],
+  },
+  {
+    key: "duration" as const,
+    label: "Длительность",
+    value: `${challenge.duration} дня`,
+  },
+  {
+    key: "startDate" as const,
+    label: "Старт",
+    value: new Date(challenge.startDate).toLocaleDateString("ru-RU"),
+  },
+  {
+    key: "tech" as const,
+    label: "Технологии",
+    value: challenge.tech.join(", "),
+  },
+];
+---
+
+<Card>
+  <h3 class="text-lg font-semibold mb-4">ℹ️ Информация</h3>
+  <div class="space-y-3">
+    {
+      META_FIELDS.map(({ key, label, value, color }) => (
+        <div class="flex justify-between">
+          <span class="text-gray-600">{label}:</span>
+          <span class={`font-medium ${color || ""}`}>{value}</span>
+        </div>
+      ))
+    }
+  </div>
+</Card>

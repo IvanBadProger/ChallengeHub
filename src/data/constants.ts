@@ -1,7 +1,7 @@
 export const APP_CONFIG = {
   CHALLENGE_DURATION: 3, // дня
   TOTAL_CHALLENGES: 7,
-  START_DATE: '2024-01-01',
+  START_DATE: '2026-01-01',
 } as const;
 
 export const DIFFICULTY_COLORS = {

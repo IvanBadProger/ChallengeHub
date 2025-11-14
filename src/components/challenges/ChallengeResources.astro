@@ -1,0 +1,27 @@
+---
+import Card from "../ui/Card.astro";
+
+interface Props {
+  resources: string[];
+}
+
+const { resources } = Astro.props;
+---
+
+<Card>
+  <h3 class="text-lg font-semibold mb-4">📚 Ресурсы</h3>
+  <ul class="space-y-2">
+    {
+      resources.map((resource) => (
+        <li>
+          <a
+            href="#"
+            class="text-blue-600 hover:text-blue-700 text-sm block py-1"
+          >
+            {resource}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Card>

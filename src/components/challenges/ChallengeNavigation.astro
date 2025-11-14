@@ -1,0 +1,39 @@
+---
+import Card from "../ui/Card.astro";
+import Button from "../ui/Button";
+
+interface Props {
+  currentId: number;
+  totalChallenges?: number;
+}
+
+const { currentId, totalChallenges = 7 } = Astro.props;
+---
+
+<Card>
+  <h3 class="text-lg font-semibold mb-4">🧭 Навигация</h3>
+  <div class="space-y-2">
+    {
+      currentId > 1 && (
+        <Button
+          href={`/challenges/${currentId - 1}`}
+          variant="outline"
+          className="w-full justify-center"
+        >
+          ← Предыдущее
+        </Button>
+      )
+    }
+    {
+      currentId < totalChallenges && (
+        <Button
+          href={`/challenges/${currentId + 1}`}
+          variant="outline"
+          className="w-full justify-center"
+        >
+          Следующее →
+        </Button>
+      )
+    }
+  </div>
+</Card>
