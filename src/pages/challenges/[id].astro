@@ -1,0 +1,202 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Card from "../../components/ui/Card.astro";
+import Button from "../../components/ui/Button.astro";
+import { getChallengeById } from "../../data/challenges";
+import { DIFFICULTY_COLORS, CATEGORY_ICONS } from "../../data/constants";
+
+export async function getStaticPaths() {
+  return [
+    { params: { id: "1" } },
+    { params: { id: "2" } },
+    { params: { id: "3" } },
+    { params: { id: "4" } },
+    { params: { id: "5" } },
+    { params: { id: "6" } },
+    { params: { id: "7" } },
+  ];
+}
+
+const { id } = Astro.params;
+const challenge = getChallengeById(Number(id));
+
+if (!challenge) {
+  throw new Error("Challenge not found");
+}
+---
+
+<Layout title={`${challenge.title} - Frontend Challenge`}>
+  <div class="max-w-4xl mx-auto space-y-8">
+    <!-- Хлебные крошки -->
+    <nav class="text-sm text-gray-500">
+      <a href="/" class="hover:text-blue-600">Главная</a> /
+      <a href="/challenges" class="hover:text-blue-600"> Все задания</a> /
+      <span class="text-gray-900"> {challenge.title}</span>
+    </nav>
+
+    <!-- Заголовок -->
+    <div
+      class="flex flex-col md:flex-row md:items-start md:justify-between gap-4"
+    >
+      <div>
+        <div class="flex items-center space-x-3 mb-2">
+          <span class="text-3xl">{CATEGORY_ICONS[challenge.category]}</span>
+          <span
+            class={`text-sm font-medium px-3 py-1 rounded-full ${DIFFICULTY_COLORS[challenge.difficulty]}`}
+          >
+            {
+              challenge.difficulty === "beginner"
+                ? "Начинающий"
+                : challenge.difficulty === "intermediate"
+                  ? "Средний"
+                  : "Продвинутый"
+            }
+          </span>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900">
+          #{challenge.id}. {challenge.title}
+        </h1>
+        <p class="text-xl text-gray-600 mt-2">{challenge.description}</p>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <Button variant="primary" size="lg">Начать выполнение</Button>
+        <Button variant="outline" size="lg">Добавить в закладки</Button>
+      </div>
+    </div>
+
+    <!-- Детали -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Основной контент -->
+      <div class="md:col-span-2 space-y-6">
+        <!-- Требования -->
+        <Card>
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">📋 Требования</h2>
+          <ul class="space-y-3">
+            {
+              challenge.requirements.map((requirement, index) => (
+                <li class="flex items-start space-x-3">
+                  <span class="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium mt-0.5 flex-shrink-0">
+                    {index + 1}
+                  </span>
+                  <span class="text-gray-700">{requirement}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </Card>
+
+        <!-- Подсказки -->
+        <Card>
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">💡 Подсказки</h2>
+          <ul class="space-y-3">
+            {
+              challenge.tips.map((tip, index) => (
+                <li class="flex items-start space-x-3">
+                  <span class="bg-yellow-100 text-yellow-600 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium mt-0.5 flex-shrink-0">
+                    {index + 1}
+                  </span>
+                  <span class="text-gray-700">{tip}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </Card>
+      </div>
+
+      <!-- Сайдбар -->
+      <div class="space-y-6">
+        <!-- Информация -->
+        <Card>
+          <h3 class="text-lg font-semibold mb-4">ℹ️ Информация</h3>
+          <div class="space-y-3">
+            <div class="flex justify-between">
+              <span class="text-gray-600">Сложность:</span>
+              <span
+                class={`font-medium ${
+                  challenge.difficulty === "beginner"
+                    ? "text-green-600"
+                    : challenge.difficulty === "intermediate"
+                      ? "text-yellow-600"
+                      : "text-red-600"
+                }`}
+              >
+                {
+                  challenge.difficulty === "beginner"
+                    ? "Начинающий"
+                    : challenge.difficulty === "intermediate"
+                      ? "Средний"
+                      : "Продвинутый"
+                }
+              </span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">Длительность:</span>
+              <span class="font-medium">{challenge.duration} дня</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">Старт:</span>
+              <span class="font-medium"
+                >{
+                  new Date(challenge.startDate).toLocaleDateString("ru-RU")
+                }</span
+              >
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">Технологии:</span>
+              <span class="font-medium">{challenge.tech.join(", ")}</span>
+            </div>
+          </div>
+        </Card>
+
+        <!-- Ресурсы -->
+        <Card>
+          <h3 class="text-lg font-semibold mb-4">📚 Ресурсы</h3>
+          <ul class="space-y-2">
+            {
+              challenge.resources.map((resource) => (
+                <li>
+                  <a
+                    href="#"
+                    class="text-blue-600 hover:text-blue-700 text-sm block py-1"
+                  >
+                    {resource}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </Card>
+
+        <!-- Навигация -->
+        <Card>
+          <h3 class="text-lg font-semibold mb-4">🧭 Навигация</h3>
+          <div class="space-y-2">
+            {
+              Number(id) > 1 && (
+                <Button
+                  href={`/challenges/${Number(id) - 1}`}
+                  variant="outline"
+                  class="w-full justify-center"
+                >
+                  ← Предыдущее
+                </Button>
+              )
+            }
+            {
+              Number(id) < 7 && (
+                <Button
+                  href={`/challenges/${Number(id) + 1}`}
+                  variant="outline"
+                  class="w-full justify-center"
+                >
+                  Следующее →
+                </Button>
+              )
+            }
+          </div>
+        </Card>
+      </div>
+    </div>
+  </div>
+</Layout>

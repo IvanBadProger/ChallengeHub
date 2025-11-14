@@ -1,0 +1,83 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ChallengeCard from "../../components/challenges/ChallengeCard.astro";
+import {
+  challenges,
+  getActiveChallenge,
+  getUpcomingChallenges,
+  getCompletedChallenges,
+} from "../../data/challenges";
+
+const activeChallenge = getActiveChallenge();
+const upcomingChallenges = getUpcomingChallenges();
+const completedChallenges = getCompletedChallenges();
+
+const challengesWithStatus = challenges.map((challenge) => ({
+  ...challenge,
+  isActive: challenge.id === activeChallenge?.id,
+  isUpcoming: upcomingChallenges.some((up) => up.id === challenge.id),
+  isCompleted: completedChallenges.some((comp) => comp.id === challenge.id),
+}));
+---
+
+<Layout title="Все задания - Frontend Challenge">
+  <div class="space-y-8">
+    <div>
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Все задания</h1>
+      <p class="text-gray-600 text-lg">
+        Выберите задание для начала или продолжайте текущий челлендж
+      </p>
+    </div>
+
+    <!-- Фильтры -->
+    <div class="flex flex-wrap gap-4">
+      <button class="bg-blue-600 text-white px-4 py-2 rounded-lg">Все</button>
+      <button
+        class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300"
+        >Активные</button
+      >
+      <button
+        class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300"
+        >Предстоящие</button
+      >
+      <button
+        class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300"
+        >Завершенные</button
+      >
+    </div>
+
+    <!-- Сетка заданий -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        challengesWithStatus.map((challenge) => (
+          <ChallengeCard challenge={challenge} showStatus={true} />
+        ))
+      }
+    </div>
+
+    <!-- Статистика -->
+    <div class="bg-gray-100 rounded-lg p-6 mt-8">
+      <h3 class="text-lg font-semibold mb-4">Ваш прогресс</h3>
+      <div class="grid grid-cols-3 gap-4 text-center">
+        <div>
+          <div class="text-2xl font-bold text-blue-600">
+            {completedChallenges.length}
+          </div>
+          <div class="text-gray-600">Завершено</div>
+        </div>
+        <div>
+          <div class="text-2xl font-bold text-green-600">
+            {activeChallenge ? 1 : 0}
+          </div>
+          <div class="text-gray-600">Активно</div>
+        </div>
+        <div>
+          <div class="text-2xl font-bold text-orange-600">
+            {upcomingChallenges.length}
+          </div>
+          <div class="text-gray-600">Ожидают</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

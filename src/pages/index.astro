@@ -1,0 +1,110 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ChallengeCard from "../components/challenges/ChallengeCard.astro";
+import Card from "../components/ui/Card.astro";
+import {
+	challenges,
+	getActiveChallenge,
+	getUpcomingChallenges,
+	getCompletedChallenges,
+} from "../data/challenges";
+import { APP_CONFIG } from "../data/constants";
+
+// Обогащаем данные статусами
+const activeChallenge = getActiveChallenge();
+const upcomingChallenges = getUpcomingChallenges();
+const completedChallenges = getCompletedChallenges();
+
+const challengesWithStatus = challenges.map((challenge) => ({
+	...challenge,
+	isActive: challenge.id === activeChallenge?.id,
+	isUpcoming: upcomingChallenges.some((up) => up.id === challenge.id),
+	isCompleted: completedChallenges.some((comp) => comp.id === challenge.id),
+}));
+---
+
+<Layout title="Frontend Challenge - 3-дневные задания для начинающих">
+	<div class="space-y-12">
+		<!-- Герой секция -->
+		<section class="text-center">
+			<h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+				Frontend <span class="text-blue-600">Challenge</span>
+			</h1>
+			<p class="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+				Совершенствуйте навыки фронтенд-разработки через 3-дневные практические
+				задания. От простого к сложному, шаг за шагом.
+			</p>
+
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+				<Card class="text-center">
+					<div class="text-3xl font-bold text-blue-600 mb-2">
+						{APP_CONFIG.TOTAL_CHALLENGES}
+					</div>
+					<div class="text-gray-600">Заданий</div>
+				</Card>
+				<Card class="text-center">
+					<div class="text-3xl font-bold text-green-600 mb-2">
+						{completedChallenges.length}
+					</div>
+					<div class="text-gray-600">Завершено</div>
+				</Card>
+				<Card class="text-center">
+					<div class="text-3xl font-bold text-orange-600 mb-2">
+						{APP_CONFIG.CHALLENGE_DURATION} дня
+					</div>
+					<div class="text-gray-600">На задание</div>
+				</Card>
+			</div>
+		</section>
+
+		<!-- Активный челлендж -->
+		{
+			activeChallenge && (
+				<section>
+					<h2 class="text-3xl font-bold text-gray-900 mb-8">Текущее задание</h2>
+					<ChallengeCard challenge={activeChallenge} showStatus={true} />
+				</section>
+			)
+		}
+
+		<!-- Все челленджи -->
+		<section>
+			<div class="flex justify-between items-center mb-8">
+				<h2 class="text-3xl font-bold text-gray-900">Все задания</h2>
+				<a
+					href="/challenges"
+					class="text-blue-600 hover:text-blue-700 font-medium"
+				>
+					Смотреть все →
+				</a>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{
+					challengesWithStatus
+						.slice(0, 3)
+						.map((challenge) => (
+							<ChallengeCard challenge={challenge} showStatus={true} />
+						))
+				}
+			</div>
+		</section>
+
+		<!-- Призыв к действию -->
+		<section class="text-center">
+			<Card class="max-w-2xl mx-auto">
+				<h2 class="text-2xl font-bold text-gray-900 mb-4">Готовы начать?</h2>
+				<p class="text-gray-600 mb-6">
+					Присоединяйтесь к сообществу начинающих разработчиков и
+					совершенствуйте навыки через практику.
+				</p>
+				<a
+					href="/challenges"
+					class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition font-medium"
+				>
+					Начать первый челлендж
+				</a>
+			</Card>
+		</section>
+	</div>
+</Layout>
