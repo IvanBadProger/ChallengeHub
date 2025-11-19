@@ -1,5 +1,4 @@
 import type { Challenge } from './types';
-import { APP_CONFIG } from './constants';
 
 export const challenges: Challenge[] = [
   {
@@ -8,7 +7,6 @@ export const challenges: Challenge[] = [
     description: "Создайте простую HTML-страницу с информацией о себе",
     difficulty: "beginner",
     category: "html",
-    duration: APP_CONFIG.CHALLENGE_DURATION,
     requirements: [
       "Семантическая HTML-разметка (header, main, footer)",
       "Ваше фото и краткая информация",
@@ -21,124 +19,93 @@ export const challenges: Challenge[] = [
       "Подберите гармоничную цветовую схему"
     ],
     resources: [
-      "MDN HTML Basics",
-      "CSS Flexbox Guide",
-      "Color Theory for Designers"
+      {
+        title: "MDN HTML Basics",
+        url: "https://developer.mozilla.org/ru/docs/Learn/HTML/Introduction_to_HTML/Getting_started"
+      },
+      {
+        title: "CSS Flexbox Guide",
+        url: "https://css-tricks.com/snippets/css/a-guide-to-flexbox/"
+      },
+      {
+        title: "Color Theory for Designers",
+        url: "https://www.smashingmagazine.com/2010/01/color-theory-for-designers-part-1-the-meaning-of-color/"
+      }
     ],
-    startDate: APP_CONFIG.START_DATE,
     tech: ["HTML", "CSS"]
   },
   {
     id: 2,
-    title: "Статический список дел",
-    description: "Создайте красивый статический список задач без функционала",
+    title: "Анимированная кнопка",
+    description: "Создайте красивую интерактивную кнопку с CSS-анимациями",
     difficulty: "beginner",
     category: "css",
-    duration: APP_CONFIG.CHALLENGE_DURATION,
     requirements: [
-      "Стилизованные чекбоксы",
-      "Разные категории задач (цвета)",
-      "Красивые шрифты и отступы",
-      "Эффекты при наведении"
+      "Плавные transition эффекты",
+      "Анимация при наведении и клике",
+      "Кастомные свойства CSS",
+      "Кроссбраузерная совместимость"
     ],
     tips: [
-      "Используйте CSS-псевдоэлементы для кастомных чекбоксов",
-      "Примените CSS-переменные для цветов",
-      "Добавьте плавные переходы"
+      "Используйте transform для плавных анимаций",
+      "Экспериментируйте с box-shadow для глубины",
+      "Тестируйте на разных устройствах"
     ],
     resources: [
-      "CSS Pseudo-elements",
-      "CSS Custom Properties",
-      "CSS Transitions"
+      {
+        title: "CSS Transitions Guide",
+        url: "https://developer.mozilla.org/ru/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions"
+      },
+      {
+        title: "Transform Property MDN",
+        url: "https://developer.mozilla.org/ru/docs/Web/CSS/transform"
+      },
+      {
+        title: "Modern CSS Solutions",
+        url: "https://moderncss.dev/"
+      }
     ],
-    startDate: "2026-01-04",
     tech: ["HTML", "CSS"]
   },
   {
     id: 3,
-    title: "Интерактивный светофор",
-    description: "Создайте работающий светофор с автоматической сменой цветов",
+    title: "Модальное окно",
+    description: "Реализуйте всплывающее модальное окно с затемнением фона",
     difficulty: "beginner",
     category: "javascript",
-    duration: APP_CONFIG.CHALLENGE_DURATION,
     requirements: [
-      "Три сигнала (красный, желтый, зеленый)",
-      "Автоматическая смена через интервалы",
-      "Кнопка ручного управления",
-      "Реалистичные тайминги"
+      "Открытие/закрытие по клику на кнопку",
+      "Затемнение фона (оверлей)",
+      "Закрытие по клику вне окна и на ESC",
+      "Плавные анимации появления"
     ],
     tips: [
-      "Используйте setInterval для автоматической смены",
-      "Добавьте CSS-анимации для плавности",
-      "Храните текущее состояние в переменной"
+      "Используйте CSS transition для анимаций",
+      "Добавьте focus trap для доступности",
+      "Управляйте состоянием через data-атрибуты"
     ],
     resources: [
-      "JavaScript setInterval",
-      "DOM Manipulation",
-      "CSS Animations"
+      {
+        title: "JavaScript Events",
+        url: "https://developer.mozilla.org/ru/docs/Web/API/Event"
+      },
+      {
+        title: "CSS Transitions",
+        url: "https://developer.mozilla.org/ru/docs/Web/CSS/transition"
+      },
+      {
+        title: "ARIA Modal Pattern",
+        url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal/"
+      }
     ],
-    startDate: "2026-01-07",
     tech: ["HTML", "CSS", "JavaScript"]
   },
   {
     id: 4,
-    title: "Простой калькулятор",
-    description: "Реализуйте базовый калькулятор с основными операциями",
-    difficulty: "intermediate",
-    category: "javascript",
-    duration: APP_CONFIG.CHALLENGE_DURATION,
-    requirements: [
-      "Кнопки цифр 0-9 и операций",
-      "Дисплей для ввода и результата",
-      "Обработка последовательных операций",
-      "Кнопка очистки"
-    ],
-    tips: [
-      "Разделите логику и отображение",
-      "Используйте eval() с осторожностью или парсинг",
-      "Обрабатывайте ошибки ввода"
-    ],
-    resources: [
-      "JavaScript Functions",
-      "Event Handling",
-      "String Manipulation"
-    ],
-    startDate: "2026-01-10",
-    tech: ["HTML", "CSS", "JavaScript"]
-  },
-  {
-    id: 5,
-    title: "Генератор случайных советов",
-    description: "Создайте приложение, которое показывает случайные советы по фронтенду",
-    difficulty: "beginner",
-    category: "javascript",
-    duration: APP_CONFIG.CHALLENGE_DURATION,
-    requirements: [
-      "Массив с советами",
-      "Кнопка для генерации случайного совета",
-      "Плавная анимация появления",
-      "Возможность добавить свой совет"
-    ],
-    tips: [
-      "Используйте Math.random() для выбора случайного элемента",
-      "Добавьте CSS transition для плавности",
-      "Храните советы в отдельном массиве"
-    ],
-    resources: [
-      "JavaScript Arrays",
-      "Math.random()",
-      "CSS Transitions"
-    ],
-    startDate: "2026-01-13",
-    tech: ["HTML", "CSS", "JavaScript"]
-  },
-  {
-    id: 6,
     title: "Таймер Pomodoro",
     description: "Создайте таймер для техники Pomodoro с рабочими интервалами",
     difficulty: "intermediate",
     category: "javascript",
-    duration: APP_CONFIG.CHALLENGE_DURATION,
     requirements: [
       "Настройка времени работы и отдыха",
       "Визуальный отсчет времени",
@@ -147,64 +114,233 @@ export const challenges: Challenge[] = [
     ],
     tips: [
       "Используйте setInterval для отсчета времени",
-      "Храните состояние таймера (работа/отдых)",
+      "Храните состояние таймера в объекте",
       "Добавьте localStorage для сохранения статистики"
     ],
     resources: [
-      "JavaScript Date Object",
-      "Web Audio API",
-      "localStorage"
+      {
+        title: "JavaScript Date Object",
+        url: "https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Date"
+      },
+      {
+        title: "Web Audio API",
+        url: "https://developer.mozilla.org/ru/docs/Web/API/Web_Audio_API"
+      },
+      {
+        title: "LocalStorage Guide",
+        url: "https://developer.mozilla.org/ru/docs/Web/API/Window/localStorage"
+      }
     ],
-    startDate: "2026-01-16",
-    tech: ["HTML", "CSS", "JavaScript"]
+    tech: ["HTML", "CSS", "JavaScript", "LocalStorage"]
+  },
+  {
+    id: 5,
+    title: "Поиск пользователей GitHub",
+    description: "Создайте приложение для поиска и отображения профилей GitHub",
+    difficulty: "intermediate",
+    category: "javascript",
+    requirements: [
+      "Поиск по username через GitHub API",
+      "Отображение аватара и основной информации",
+      "Список репозиториев пользователя",
+      "Обработка ошибок и loading states"
+    ],
+    tips: [
+      "Используйте debounce для поиска",
+      "Кэшируйте результаты запросов",
+      "Добавьте пагинацию для репозиториев"
+    ],
+    resources: [
+      {
+        title: "GitHub REST API",
+        url: "https://docs.github.com/en/rest"
+      },
+      {
+        title: "JavaScript Fetch API",
+        url: "https://developer.mozilla.org/ru/docs/Web/API/Fetch_API"
+      },
+      {
+        title: "Debounce Function",
+        url: "https://davidwalsh.name/javascript-debounce-function"
+      }
+    ],
+    tech: ["HTML", "CSS", "JavaScript", "API"]
+  },
+  {
+    id: 6,
+    title: "Интерактивная карта путешествий",
+    description: "Разработайте карту с отметками посещенных мест",
+    difficulty: "intermediate",
+    category: "project",
+    requirements: [
+      "Интеграция с картами (Leaflet.js)",
+      "Добавление и удаление маркеров",
+      "Модальное окно с информацией о месте",
+      "Адаптивный дизайн для мобильных"
+    ],
+    tips: [
+      "Начните с простой SVG карты для прототипа",
+      "Используйте локальное хранилище для данных",
+      "Оптимизируйте производительность с маркерами"
+    ],
+    resources: [
+      {
+        title: "Leaflet.js Documentation",
+        url: "https://leafletjs.com/"
+      },
+      {
+        title: "SVG Basics",
+        url: "https://developer.mozilla.org/ru/docs/Web/SVG"
+      },
+      {
+        title: "LocalStorage API",
+        url: "https://developer.mozilla.org/ru/docs/Web/API/Window/localStorage"
+      }
+    ],
+    tech: ["HTML", "CSS", "JavaScript", "API", "Leaflet.js"]
   },
   {
     id: 7,
-    title: "Игра 'Угадай число'",
-    description: "Реализуйте игру, где компьютер загадывает число, а пользователь угадывает",
-    difficulty: "intermediate",
+    title: "Система управления задачами",
+    description: "Создайте полнофункциональное приложение для управления задачами",
+    difficulty: "advanced",
     category: "project",
-    duration: APP_CONFIG.CHALLENGE_DURATION,
     requirements: [
-      "Генерация случайного числа",
-      "Подсказки 'больше/меньше'",
-      "Счетчик попыток",
-      "История предыдущих догадок"
+      "CRUD операции для задач",
+      "Фильтрация по статусу и категориям",
+      "Drag & drop сортировка",
+      "Экспорт данных в JSON"
     ],
     tips: [
-      "Используйте бинарный поиск для подсказок AI",
-      "Валидируйте ввод пользователя",
-      "Добавьте разные уровни сложности"
+      "Разделите логику на модули",
+      "Используйте паттерн Observer для обновлений",
+      "Протестируйте edge cases"
     ],
     resources: [
-      "JavaScript Loops",
-      "Conditional Statements",
-      "Game Logic Patterns"
+      {
+        title: "JavaScript Design Patterns",
+        url: "https://www.patterns.dev/posts/classic-design-patterns/"
+      },
+      {
+        title: "HTML5 Drag and Drop API",
+        url: "https://developer.mozilla.org/ru/docs/Web/API/HTML_Drag_and_Drop_API"
+      },
+      {
+        title: "JSON Manipulation",
+        url: "https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/JSON"
+      }
     ],
-    startDate: "2026-01-19",
+    tech: ["HTML", "CSS", "JavaScript", "LocalStorage"]
+  },
+  {
+    id: 8,
+    title: "Виртуальная клавиатура",
+    description: "Реализуйте виртуальную клавиатуру с поддержкой разных языков",
+    difficulty: "advanced",
+    category: "javascript",
+    requirements: [
+      "Полная раскладка клавиатуры",
+      "Переключение между языками",
+      "Анимация нажатия клавиш",
+      "Интеграция с текстовыми полями"
+    ],
+    tips: [
+      "Создайте компонентный подход для клавиш",
+      "Используйте data-атрибуты для конфигурации",
+      "Оптимизируйте для touch устройств"
+    ],
+    resources: [
+      {
+        title: "JavaScript Events",
+        url: "https://developer.mozilla.org/ru/docs/Web/API/Event"
+      },
+      {
+        title: "CSS Animations Advanced",
+        url: "https://developer.mozilla.org/ru/docs/Web/CSS/CSS_Animations/Using_CSS_animations"
+      },
+      {
+        title: "Accessibility Guidelines",
+        url: "https://www.w3.org/WAI/ARIA/apg/"
+      }
+    ],
     tech: ["HTML", "CSS", "JavaScript"]
+  },
+  {
+    id: 9,
+    title: "Погодное приложение",
+    description: "Создайте приложение для отображения текущей погоды и прогноза",
+    difficulty: "intermediate",
+    category: "project",
+    requirements: [
+      "Определение местоположения пользователя",
+      "Отображение текущей погоды и прогноза на 5 дней",
+      "Переключение между городами",
+      "Адаптивный дизайн с иконками погоды"
+    ],
+    tips: [
+      "Используйте Geolocation API для определения местоположения",
+      "Кэшируйте данные погоды",
+      "Добавьте скелетон-загрузку"
+    ],
+    resources: [
+      {
+        title: "OpenWeatherMap API",
+        url: "https://openweathermap.org/api"
+      },
+      {
+        title: "Geolocation API",
+        url: "https://developer.mozilla.org/ru/docs/Web/API/Geolocation_API"
+      },
+      {
+        title: "Weather Icons",
+        url: "https://erikflowers.github.io/weather-icons/"
+      }
+    ],
+    tech: ["HTML", "CSS", "JavaScript", "API"]
+  },
+  {
+    id: 10,
+    title: "Интерпретатор Markdown",
+    description: "Создайте редактор Markdown с предпросмотром в реальном времени",
+    difficulty: "advanced",
+    category: "project",
+    requirements: [
+      "Редактор и предпросмотр в реальном времени",
+      "Подсветка синтаксиса Markdown",
+      "Экспорт результата в HTML",
+      "Поддержка основных элементов Markdown"
+    ],
+    tips: [
+      "Используйте регулярные выражения для парсинга",
+      "Разделите логику на парсер и рендерер",
+      "Добавьте горячие клавиши для форматирования"
+    ],
+    resources: [
+      {
+        title: "Markdown Guide",
+        url: "https://www.markdownguide.org/"
+      },
+      {
+        title: "Regular Expressions",
+        url: "https://developer.mozilla.org/ru/docs/Web/JavaScript/Guide/Regular_Expressions"
+      },
+      {
+        title: "ContentEditable API",
+        url: "https://developer.mozilla.org/ru/docs/Web/HTML/Global_attributes/contenteditable"
+      }
+    ],
+    tech: ["HTML", "CSS", "JavaScript", "RegExp"]
   }
 ];
 
-// Вспомогательные функции
 export const getChallengeById = (id: number): Challenge | undefined => {
   return challenges.find(challenge => challenge.id === id);
 };
 
-export const getActiveChallenge = (): Challenge | null => {
-  const today = new Date().toISOString().split('T')[0];
-  return challenges.find(challenge => challenge.startDate <= today &&
-    new Date(challenge.startDate).getTime() + challenge.duration * 24 * 60 * 60 * 1000 > new Date().getTime()) || null;
+export const getChallengesByDifficulty = (difficulty: Challenge['difficulty']): Challenge[] => {
+  return challenges.filter(challenge => challenge.difficulty === difficulty);
 };
 
-export const getUpcomingChallenges = (): Challenge[] => {
-  const today = new Date().toISOString().split('T')[0];
-  return challenges.filter(challenge => challenge.startDate > today);
-};
-
-export const getCompletedChallenges = (): Challenge[] => {
-  const today = new Date().toISOString().split('T')[0];
-  return challenges.filter(challenge =>
-    new Date(challenge.startDate).getTime() + challenge.duration * 24 * 60 * 60 * 1000 <= new Date().getTime()
-  );
+export const getChallengesByCategory = (category: Challenge['category']): Challenge[] => {
+  return challenges.filter(challenge => challenge.category === category);
 };

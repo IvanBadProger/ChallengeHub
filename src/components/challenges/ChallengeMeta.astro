@@ -1,6 +1,12 @@
 ---
 import type { Challenge } from "../../data/types";
-import Card from "../ui/Card.astro";
+import Card from "../kit/Card";
+import {
+  DIFFICULTY_COLORS,
+  CATEGORY_ICONS,
+  CATEGORY_LABELS,
+  DIFFICULTY_LABELS,
+} from "../../data/constants";
 
 interface Props {
   challenge: Challenge;
@@ -8,51 +14,39 @@ interface Props {
 
 const { challenge } = Astro.props;
 
-const DIFFICULTY_LABELS = {
-  beginner: "Начинающий",
-  intermediate: "Средний",
-  advanced: "Продвинутый",
-};
-
-const DIFFICULTY_COLORS = {
-  beginner: "text-green-600",
-  intermediate: "text-yellow-600",
-  advanced: "text-red-600",
-};
-
 const META_FIELDS = [
   {
-    key: "difficulty" as const,
     label: "Сложность",
     value: DIFFICULTY_LABELS[challenge.difficulty],
     color: DIFFICULTY_COLORS[challenge.difficulty],
+    icon: "🎯",
   },
   {
-    key: "duration" as const,
-    label: "Длительность",
-    value: `${challenge.duration} дня`,
+    label: "Категория",
+    value: CATEGORY_LABELS[challenge.category],
+    color: "text-gray-700",
+    icon: CATEGORY_ICONS[challenge.category],
   },
   {
-    key: "startDate" as const,
-    label: "Старт",
-    value: new Date(challenge.startDate).toLocaleDateString("ru-RU"),
-  },
-  {
-    key: "tech" as const,
     label: "Технологии",
     value: challenge.tech.join(", "),
+    color: "text-blue-600",
+    icon: "⚙️",
   },
 ];
 ---
 
 <Card>
-  <h3 class="text-lg font-semibold mb-4">ℹ️ Информация</h3>
-  <div class="space-y-3">
+  <h3 class="text-lg font-semibold mb-4">ℹ️ Информация о задании</h3>
+  <div class="space-y-4">
     {
-      META_FIELDS.map(({ key, label, value, color }) => (
-        <div class="flex justify-between">
-          <span class="text-gray-600">{label}:</span>
-          <span class={`font-medium ${color || ""}`}>{value}</span>
+      META_FIELDS.map(({ label, value, color, icon }) => (
+        <div class="flex items-start space-x-3">
+          <span class="text-lg mt-0.5 flex-shrink-0">{icon}</span>
+          <div class="flex-grow">
+            <div class="text-sm text-gray-600 font-medium">{label}</div>
+            <div class={`text-sm font-medium ${color}`}>{value}</div>
+          </div>
         </div>
       ))
     }

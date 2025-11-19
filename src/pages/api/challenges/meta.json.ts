@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { challenges } from '../../../data/challenges';
+import type { ChallengesMeta } from '../types';
 
 export const GET: APIRoute = async () => {
   const meta: ChallengesMeta = {
@@ -25,11 +26,3 @@ export const GET: APIRoute = async () => {
     }
   );
 };
-
-export interface ChallengesMeta {
-  total: number,
-  categories: string[],
-  difficulties: string[],
-  technologies: string[],
-
-}

@@ -1,0 +1,17 @@
+---
+import type { Challenge } from "../../data/types";
+import { DIFFICULTY_LABELS, DIFFICULTY_COLORS } from "../../data/constants";
+
+interface Props {
+  difficulty: Challenge["difficulty"];
+}
+// fix: сделать пропс некликабельности
+const { difficulty } = Astro.props;
+---
+
+<a
+  href=`/challenges?difficulty=${difficulty}`
+  class={`text-sm font-medium px-3 py-1 rounded-full ${DIFFICULTY_COLORS[difficulty]} hover:underline`}
+>
+  {DIFFICULTY_LABELS[difficulty]}
+</a>

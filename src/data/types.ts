@@ -4,19 +4,11 @@ export interface Challenge {
   description: string;
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   category: 'html' | 'css' | 'javascript' | 'project';
-  duration: number; // в днях
   requirements: string[];
   tips: string[];
-  resources: string[];
-  startDate: string; // YYYY-MM-DD
+  resources: {
+    title: string
+    url: string
+  }[];
   tech: string[];
-  isActive?: boolean;
-  isCompleted?: boolean;
-  isUpcoming?: boolean;
-}
-
-export interface UserProgress {
-  completedChallenges: number[];
-  currentChallenge: number;
-  streak: number;
 }

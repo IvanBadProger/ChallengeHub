@@ -1,25 +1,47 @@
 ---
-import Layout from "../../layouts/Layout.astro";
 import { ChallengeFilter } from "../../components/challenges/FilteredChallenges";
-import type { ChallengesResponseData } from "../../pages/api/challenges.json";
+import Layout from "../../layouts/Layout.astro";
 
-const res = await fetch("http://localhost:4321/api/challenges.json?status=all");
-const result: ChallengesResponseData = await res.json();
+// Получаем параметры из URL
+const paramss = Astro.url.searchParams;
+const [difficulty, category] = [
+  paramss.get("difficulty"),
+  paramss.get("category"),
+];
+
+// Формируем URL для API с учетом параметров
+const baseUrl = import.meta.env.DEV
+  ? "http://localhost:4321"
+  : import.meta.env.SITE || "";
+const params = new URLSearchParams();
+if (difficulty) params.append("difficulty", difficulty);
+if (category) params.append("category", category);
+
+const challengesUrl = `${baseUrl}/api/challenges.json?${params.toString()}`;
+
+let challengesData;
+
+try {
+  const response = await fetch(challengesUrl);
+  challengesData = await response.json();
+
+  if (!challengesData.success) {
+    throw new Error("Failed to fetch challenges");
+  }
+} catch (error) {
+  console.error("API Error:", error);
+}
 ---
 
-<Layout title="Все задания - Frontend Challenge">
+<Layout title="Все задания - ChallengeHub">
   <div class="space-y-8">
     <div>
       <h1 class="text-4xl font-bold text-gray-900 mb-4">Все задания</h1>
       <p class="text-gray-600 text-lg">
-        Выберите задание для начала или продолжайте текущий челлендж
+        Выберите задание по уровню сложности и категории
       </p>
     </div>
 
-    <ChallengeFilter
-      initialChallenges={result.data}
-      initialStats={result.stats}
-      client:load
-    />
+    <ChallengeFilter initialChallenges={challengesData.data} client:load />
   </div>
 </Layout>

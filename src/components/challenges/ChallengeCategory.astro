@@ -1,0 +1,21 @@
+---
+import type { Challenge } from "../../data/types";
+import { CATEGORY_LABELS, CATEGORY_ICONS } from "../../data/constants";
+
+// fix: сделать пропс некликабельности
+interface Props {
+  category: Challenge["category"];
+}
+
+const { category } = Astro.props;
+
+const href = `/challenges?category=${category}`;
+---
+
+<a
+  href={href}
+  class={`text-sm font-medium px-3 py-1 rounded-full hover:underline`}
+>
+  {CATEGORY_ICONS[category]}
+  {CATEGORY_LABELS[category]}
+</a>

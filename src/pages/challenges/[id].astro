@@ -1,14 +1,12 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import ChallengeHeader from "../../components/challenges/ChallengeHeader.astro";
-import ChallengeRequirements from "../../components/challenges/ChallengeRequirements.astro";
-import ChallengeTips from "../../components/challenges/ChallengeTips.astro";
 import ChallengeMeta from "../../components/challenges/ChallengeMeta.astro";
 import ChallengeResources from "../../components/challenges/ChallengeResources.astro";
 import ChallengeNavigation from "../../components/challenges/ChallengeNavigation.astro";
 import type { Challenge } from "../../data/types";
-import type { ChallengesMeta } from "../../pages/api/challenges/meta.json";
-import type { ChallengeResponseData } from "../api/challenges/[id].json";
+import type { ChallengesMeta, ChallengeResponseData } from "../api/types";
+import ChallengeSection from "../../components/challenges/ChallengeSection.astro";
 
 // Получаем ID из параметров
 const { id } = Astro.params;
@@ -55,12 +53,16 @@ try {
 
 <Layout title={`${challenge.title} - Frontend Challenge`}>
   <div class="max-w-4xl mx-auto space-y-8">
-    <ChallengeHeader challenge={challenge} />
+    <ChallengeHeader {...challenge} />
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div class="md:col-span-2 space-y-6">
-        <ChallengeRequirements requirements={challenge.requirements} />
-        <ChallengeTips tips={challenge.tips} />
+        <ChallengeSection
+          title="Требования"
+          numbered
+          items={challenge.requirements}
+        />
+        <ChallengeSection title="Подсказки" numbered items={challenge.tips} />
       </div>
 
       <div class="space-y-6">

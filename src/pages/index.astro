@@ -1,71 +1,76 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Card from "../components/kit/Card";
+import type { ChallengesResponseData } from "./api/types";
 import ChallengeCard from "../components/challenges/ChallengeCard";
-import Card from "../components/ui/Card.astro";
-import {
-	challenges,
-	getActiveChallenge,
-	getUpcomingChallenges,
-	getCompletedChallenges,
-} from "../data/challenges";
-import { APP_CONFIG } from "../data/constants";
 
-// Обогащаем данные статусами
-const activeChallenge = getActiveChallenge();
-const upcomingChallenges = getUpcomingChallenges();
-const completedChallenges = getCompletedChallenges();
+const baseUrl = import.meta.env.DEV
+	? "http://localhost:4321"
+	: import.meta.env.SITE || "";
+const metaUrl = `${baseUrl}/api/challenges/meta.json`;
+const challengesUrl = `${baseUrl}/api/challenges.json`;
 
-const challengesWithStatus = challenges.map((challenge) => ({
-	...challenge,
-	isActive: challenge.id === activeChallenge?.id,
-	isUpcoming: upcomingChallenges.some((up) => up.id === challenge.id),
-	isCompleted: completedChallenges.some((comp) => comp.id === challenge.id),
-}));
+let meta;
+let challenges;
+
+try {
+	const [challengeResponse, metaResponse] = await Promise.all([
+		fetch(challengesUrl),
+		fetch(metaUrl),
+	]);
+	const challengeResult: ChallengesResponseData =
+		await challengeResponse.json();
+	const metaResult = await metaResponse.json();
+
+	if (!challengeResult.success || !challengeResult.data) {
+		throw new Error("Challenges not found");
+	}
+
+	if (!metaResult.success) {
+		throw new Error("Failed to fetch meta data");
+	}
+
+	challenges = challengeResult.data;
+	meta = metaResult.data;
+} catch (error) {
+	console.error("Failed to fetch meta data:", error);
+}
 ---
 
-<Layout title="Frontend Challenge - 3-дневные задания для начинающих">
+<Layout title="ChallengeHub | Задания для фронтендеров">
 	<div class="space-y-12">
 		<!-- Герой секция -->
 		<section class="text-center">
 			<h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-				Frontend <span class="text-blue-600">Challenge</span>
+				Challenge <span class="text-blue-600">HUB</span>
 			</h1>
 			<p class="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-				Совершенствуйте навыки фронтенд-разработки через 3-дневные практические
-				задания. От простого к сложному, шаг за шагом.
+				Совершенствуйте навыки фронтенд-разработки практические задания.
 			</p>
 
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-				<Card class="text-center">
+				<Card className="text-center">
 					<div class="text-3xl font-bold text-blue-600 mb-2">
-						{APP_CONFIG.TOTAL_CHALLENGES}
+						{meta?.total}
 					</div>
 					<div class="text-gray-600">Заданий</div>
 				</Card>
-				<Card class="text-center">
-					<div class="text-3xl font-bold text-green-600 mb-2">
-						{completedChallenges.length}
-					</div>
-					<div class="text-gray-600">Завершено</div>
-				</Card>
-				<Card class="text-center">
+
+				<Card className="text-center">
 					<div class="text-3xl font-bold text-orange-600 mb-2">
-						{APP_CONFIG.CHALLENGE_DURATION} дня
+						{meta?.difficulties?.length}
 					</div>
-					<div class="text-gray-600">На задание</div>
+					<div class="text-gray-600">уровни сложности</div>
+				</Card>
+
+				<Card className="text-center">
+					<div class="text-3xl font-bold text-orange-600 mb-2">
+						{meta?.categories?.length}
+					</div>
+					<div class="text-gray-600">категорий</div>
 				</Card>
 			</div>
 		</section>
-
-		<!-- Активный челлендж -->
-		{
-			activeChallenge && (
-				<section>
-					<h2 class="text-3xl font-bold text-gray-900 mb-8">Текущее задание</h2>
-					<ChallengeCard challenge={activeChallenge} showStatus={true} />
-				</section>
-			)
-		}
 
 		<!-- Все челленджи -->
 		<section>
@@ -73,7 +78,7 @@ const challengesWithStatus = challenges.map((challenge) => ({
 				<h2 class="text-3xl font-bold text-gray-900">Все задания</h2>
 				<a
 					href="/challenges"
-					class="text-blue-600 hover:text-blue-700 font-medium"
+					class="text-blue-600 hover:text-blue-800 font-medium"
 				>
 					Смотреть все →
 				</a>
@@ -81,10 +86,9 @@ const challengesWithStatus = challenges.map((challenge) => ({
 
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 				{
-					challengesWithStatus
-						.slice(0, 3)
-						.map((challenge) => (
-							<ChallengeCard challenge={challenge} showStatus={true} />
+					challenges &&
+						challenges.map((challenge) => (
+							<ChallengeCard {...challenge} as={"article"} />
 						))
 				}
 			</div>
@@ -92,7 +96,7 @@ const challengesWithStatus = challenges.map((challenge) => ({
 
 		<!-- Призыв к действию -->
 		<section class="text-center">
-			<Card class="max-w-2xl mx-auto">
+			<Card className="max-w-2xl mx-auto">
 				<h2 class="text-2xl font-bold text-gray-900 mb-4">Готовы начать?</h2>
 				<p class="text-gray-600 mb-6">
 					Присоединяйтесь к сообществу начинающих разработчиков и
@@ -100,7 +104,7 @@ const challengesWithStatus = challenges.map((challenge) => ({
 				</p>
 				<a
 					href="/challenges"
-					class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition font-medium"
+					class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-800 transition font-medium"
 				>
 					Начать первый челлендж
 				</a>

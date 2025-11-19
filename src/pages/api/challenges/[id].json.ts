@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getChallengeById } from '../../../data/challenges';
 import type { Challenge } from '../../../data/types';
+import type { ChallengeResponseData } from '../types';
 
 export const GET: APIRoute = async ({ params }) => {
   const id = Number(params.id);
@@ -52,9 +53,3 @@ export const GET: APIRoute = async ({ params }) => {
     );
   }
 };
-
-export interface ChallengeResponseData {
-  success: boolean;
-  data?: Challenge;
-  error?: string;
-}

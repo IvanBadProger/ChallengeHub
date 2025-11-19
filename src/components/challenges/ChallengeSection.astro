@@ -1,0 +1,133 @@
+---
+import Card from "../kit/Card";
+
+export interface Props {
+  title: string;
+  icon?: string;
+  items: string[];
+  variant?: "indigo" | "amber" | "emerald" | "rose" | "blue" | "gray";
+  numbered?: boolean;
+}
+
+const { title, icon, items, variant = "gray", numbered = true } = Astro.props;
+
+const variantStyles = {
+  indigo: {
+    iconBg: "bg-indigo-100",
+    iconText: "text-indigo-600",
+    accent: "text-indigo-600",
+  },
+  amber: {
+    iconBg: "bg-amber-100",
+    iconText: "text-amber-600",
+    accent: "text-amber-600",
+  },
+  emerald: {
+    iconBg: "bg-emerald-100",
+    iconText: "text-emerald-600",
+    accent: "text-emerald-600",
+  },
+  rose: {
+    iconBg: "bg-rose-100",
+    iconText: "text-rose-600",
+    accent: "text-rose-600",
+  },
+  blue: {
+    iconBg: "bg-blue-100",
+    iconText: "text-blue-600",
+    accent: "text-blue-600",
+  },
+  gray: {
+    iconBg: "bg-gray-100",
+    iconText: "text-gray-600",
+    accent: "text-gray-600",
+  },
+};
+
+const styles = variantStyles[variant];
+---
+
+<Card>
+  <h2 class="text-2xl font-bold text-gray-900 mb-4">
+    {
+      icon && (
+        <span
+          class={`rounded-full w-8 h-8 inline-flex items-center justify-center text-sm mr-2 ${styles.iconBg} ${styles.iconText}`}
+        >
+          {icon}
+        </span>
+      )
+    }
+    {title}
+  </h2>
+
+  <ul
+    class={`space-y-3 ${numbered ? "numbered-list" : ""}`}
+    data-accent={styles.accent}
+  >
+    {
+      items.map((item) => (
+        <li class="flex items-start">
+          <span class="text-gray-700">{item}</span>
+        </li>
+      ))
+    }
+  </ul>
+</Card>
+
+<style>
+  .numbered-list {
+    counter-reset: item;
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .numbered-list li {
+    counter-increment: item;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .numbered-list li::before {
+    content: counter(item);
+    background-color: rgb(243 244 246); /* bg-gray-100 */
+    color: inherit;
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 500;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+  }
+
+  /* Динамические цвета через data-attribute */
+  .numbered-list[data-accent="text-indigo-600"] li::before {
+    background-color: rgb(224 231 255);
+    color: rgb(79 70 229);
+  }
+
+  .numbered-list[data-accent="text-amber-600"] li::before {
+    background-color: rgb(254 243 199);
+    color: rgb(217 119 6);
+  }
+
+  .numbered-list[data-accent="text-emerald-600"] li::before {
+    background-color: rgb(209 250 229);
+    color: rgb(5 150 105);
+  }
+
+  .numbered-list[data-accent="text-rose-600"] li::before {
+    background-color: rgb(255 228 230);
+    color: rgb(225 29 72);
+  }
+
+  .numbered-list[data-accent="text-blue-600"] li::before {
+    background-color: rgb(219 234 254);
+    color: rgb(37 99 235);
+  }
+</style>

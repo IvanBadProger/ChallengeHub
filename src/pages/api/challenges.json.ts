@@ -1,34 +1,13 @@
 import type { APIRoute } from 'astro';
 import { challenges } from '../../data/challenges';
 import type { Challenge } from '../../data/types';
+import type { ChallengesResponseData } from './types';
 
 export const GET: APIRoute = async ({ url }) => {
-  const status = url.searchParams.get('status');
   const difficulty = url.searchParams.get('difficulty');
+  const category = url.searchParams.get('category');
 
-  const currentDate = new Date();
-
-  let filteredChallenges = challenges;
-
-  // Фильтрация по статусу
-  if (status === 'active') {
-    filteredChallenges = challenges.filter(challenge => {
-      const startDate = new Date(challenge.startDate);
-      const endDate = new Date(startDate.getTime() + challenge.duration * 24 * 60 * 60 * 1000);
-      return currentDate >= startDate && currentDate <= endDate;
-    });
-  } else if (status === 'completed') {
-    filteredChallenges = challenges.filter(challenge => {
-      const startDate = new Date(challenge.startDate);
-      const endDate = new Date(startDate.getTime() + challenge.duration * 24 * 60 * 60 * 1000);
-      return currentDate > endDate;
-    });
-  } else if (status === 'upcoming') {
-    filteredChallenges = challenges.filter(challenge => {
-      const startDate = new Date(challenge.startDate);
-      return currentDate < startDate;
-    });
-  }
+  let filteredChallenges = [...challenges];
 
   // Фильтрация по сложности
   if (difficulty) {
@@ -37,32 +16,18 @@ export const GET: APIRoute = async ({ url }) => {
     );
   }
 
-  // Вычисляем общую статистику (всегда по всем заданиям)
-  const totalStats = {
-    total: challenges.length,
-    active: challenges.filter(challenge => {
-      const startDate = new Date(challenge.startDate);
-      const endDate = new Date(startDate.getTime() + challenge.duration * 24 * 60 * 60 * 1000);
-      return currentDate >= startDate && currentDate <= endDate;
-    }).length,
-    completed: challenges.filter(challenge => {
-      const startDate = new Date(challenge.startDate);
-      const endDate = new Date(startDate.getTime() + challenge.duration * 24 * 60 * 60 * 1000);
-      return currentDate > endDate;
-    }).length,
-    upcoming: challenges.filter(challenge => {
-      const startDate = new Date(challenge.startDate);
-      return currentDate < startDate;
-    }).length
-  };
-
+  // Фильтрация по категории
+  if (category) {
+    filteredChallenges = filteredChallenges.filter(challenge =>
+      challenge.category === category
+    );
+  }
 
   const data: ChallengesResponseData = {
     success: true,
     data: filteredChallenges,
     total: filteredChallenges.length,
-    stats: totalStats, // Добавляем статистику в ответ
-    filters: { status, difficulty }
+    filters: { difficulty, category }
   }
 
   return new Response(
@@ -73,16 +38,3 @@ export const GET: APIRoute = async ({ url }) => {
     }
   );
 };
-
-export interface ChallengesResponseData {
-  success: boolean,
-  data: Challenge[]
-  total: number
-  stats: {
-    total: number
-    completed: number
-    active: number
-    upcoming: number
-  }
-  filters: { status: string | null, difficulty: string | null }
-}

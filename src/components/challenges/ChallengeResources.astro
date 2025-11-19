@@ -1,8 +1,9 @@
 ---
-import Card from "../ui/Card.astro";
+import type { Challenge } from "../../data/types";
+import Card from "../kit/Card";
 
 interface Props {
-  resources: string[];
+  resources: Challenge["resources"];
 }
 
 const { resources } = Astro.props;
@@ -12,13 +13,14 @@ const { resources } = Astro.props;
   <h3 class="text-lg font-semibold mb-4">📚 Ресурсы</h3>
   <ul class="space-y-2">
     {
-      resources.map((resource) => (
+      resources.map(({ title, url }) => (
         <li>
           <a
-            href="#"
-            class="text-blue-600 hover:text-blue-700 text-sm block py-1"
+            href={url}
+            class="text-blue-600 hover:text-blue-800 text-sm block py-1"
+            target="_blank"
           >
-            {resource}
+            {title}
           </a>
         </li>
       ))

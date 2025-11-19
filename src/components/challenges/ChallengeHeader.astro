@@ -1,42 +1,39 @@
 ---
 import type { Challenge } from "../../data/types";
-import { CATEGORY_ICONS, DIFFICULTY_COLORS } from "../../data/constants";
-import Button from "../ui/Button";
+import Button from "../kit/Button";
+import ChallengeDifficulty from "./ChallengeDifficulty.astro";
+import Breadcrumbs from "../kit/Breadcrumbs";
+import ChallengeCategory from "./ChallengeCategory.astro";
 
-interface Props {
-  challenge: Challenge;
-}
+interface Props
+  extends Omit<Challenge, "resources" | "requirements" | "tech" | "tips"> {}
 
-const { challenge } = Astro.props;
-
-const DIFFICULTY_LABELS = {
-  beginner: "Начинающий",
-  intermediate: "Средний",
-  advanced: "Продвинутый",
-};
+const { category, description, difficulty, title } = Astro.props;
 ---
 
-<nav class="text-sm text-gray-500">
-  <a href="/" class="hover:text-blue-600">Главная</a> /
-  <a href="/challenges" class="hover:text-blue-600"> Все задания</a> /
-  <span class="text-gray-900"> {challenge.title}</span>
-</nav>
+<Breadcrumbs
+  items={[
+    { label: "Главная", href: "/" },
+    { label: "Все задания", href: "/challenges" },
+    { label: title },
+  ]}
+/>
 
 <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
   <div>
     <div class="flex items-center space-x-3 mb-2">
-      <span class="text-3xl">{CATEGORY_ICONS[challenge.category]}</span>
-      <span
-        class={`text-sm font-medium px-3 py-1 rounded-full ${DIFFICULTY_COLORS[challenge.difficulty]}`}
-      >
-        {DIFFICULTY_LABELS[challenge.difficulty]}
-      </span>
+      <ChallengeCategory category={category} />
+      <ChallengeDifficulty difficulty={difficulty} />
     </div>
+
     <h1 class="text-3xl md:text-4xl font-bold text-gray-900">
-      #{challenge.id}. {challenge.title}
+      {title}
     </h1>
-    <p class="text-xl text-gray-600 mt-2">{challenge.description}</p>
+
+    <p class="text-xl text-gray-600 mt-2">{description}</p>
   </div>
 
-  <Button variant="primary" size="lg">Начать выполнение</Button>
+  <Button variant="primary" size="lg" disabled title="В разработке"
+    >Показать решение</Button
+  >
 </div>

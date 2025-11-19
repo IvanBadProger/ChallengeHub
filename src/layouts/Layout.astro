@@ -1,17 +1,16 @@
 ---
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import Header from "./components/Header.astro";
+import Footer from "./components/Footer.astro";
 import "../styles/globals.css";
+import { SITE_CONFIG } from "../data/config";
 
 export interface Props {
   title?: string;
   description?: string;
 }
 
-const {
-  title = "Frontend Challenge",
-  description = "3-дневные челленджи для начинающих фронтенд-разработчиков",
-} = Astro.props;
+const { title = SITE_CONFIG.name, description = SITE_CONFIG.description } =
+  Astro.props;
 ---
 
 <!doctype html>
