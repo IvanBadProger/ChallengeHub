@@ -4,6 +4,8 @@ import tailwindcss from '@tailwindcss/vite';
 import node from '@astrojs/node';
 import react from '@astrojs/react';
 
+import vercel from '@astrojs/vercel';
+
 // https://astro.build/config
 export default defineConfig({
   vite: {
@@ -15,9 +17,7 @@ export default defineConfig({
   // Включаем SSR
   output: 'server',
 
-  adapter: node({
-    mode: 'standalone',
-  }),
+  adapter: vercel(),
 
   redirects: {
     '/': '/home',
