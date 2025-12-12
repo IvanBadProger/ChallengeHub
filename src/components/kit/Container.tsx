@@ -6,6 +6,7 @@ type ContainerSize = 'normal' | 'wide' | 'narrow';
 interface ContainerProps extends PropsWithChildren {
   size?: ContainerSize;
   className?: string;
+  centered?: boolean
 }
 
 const sizeClasses = {
@@ -14,8 +15,16 @@ const sizeClasses = {
   narrow: 'max-w-4xl',
 };
 
-export const Container = ({ size = 'normal', children, className = '' }: ContainerProps) => {
+export const Container = ({ size = 'normal', children, centered = false, className = '' }: ContainerProps) => {
   return (
-    <div className={clsx('container mx-auto px-4', sizeClasses[size], className)}>{children}</div>
+    <div className={clsx(
+      'container px-2 sm:px-4 md:px-6 lg:px-8',
+      centered && 'mx-auto',
+      sizeClasses[size],
+      className
+    )}
+      data-element='container'>
+      {children}
+    </div>
   );
 };

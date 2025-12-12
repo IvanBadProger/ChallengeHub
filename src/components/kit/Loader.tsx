@@ -1,6 +1,6 @@
 export function Loader() {
   return (
-    <div className="text-center py-12">
+    <div className="text-center py-12" data-element='loader'>
       <div className="relative inline-flex">
         {/* Внешнее кольцо */}
         <div className="h-12 w-12 rounded-full border-4 border-neutral-200"></div>

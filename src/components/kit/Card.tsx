@@ -15,7 +15,7 @@ export const Card = ({
   as: Component = 'div',
   href,
   onClick,
-  hoverable = true,
+  hoverable = false,
   ...props
 }: CardProps) => {
   const baseClasses = clsx(
@@ -23,21 +23,27 @@ export const Card = ({
     'rounded-xl shadow-card',
     'border border-neutral-200',
     'transition-all duration-300',
+    'p-3',
+    'sm:p-4',
+    'md:p-5',
+    'lg:p-6',
+    'xl:p-7',
+    '2xl:p-8',
     hoverable && 'hover:shadow-card-hover hover:border-neutral-300 hover:-translate-y-0.5',
     className
   );
 
   if (href) {
     return (
-      <a href={href} className={baseClasses} onClick={onClick} {...props}>
-        <div className="p-6 h-full">{children}</div>
+      <a href={href} className={baseClasses} onClick={onClick} data-element='card' {...props}>
+        <div className="h-full">{children}</div>
       </a>
     );
   }
 
   return (
-    <Component className={baseClasses} onClick={onClick} {...props}>
-      <div className="p-6 h-full">{children}</div>
+    <Component className={baseClasses} onClick={onClick} data-element='card' {...props}>
+      <div className="h-full">{children}</div>
     </Component>
   );
 };

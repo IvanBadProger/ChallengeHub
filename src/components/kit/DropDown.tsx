@@ -55,11 +55,11 @@ export const Dropdown = ({
   }, [isOpen, onClose]);
 
   if (!isOpen) {
-    return <div className="relative">{trigger}</div>;
+    return <div className="relative" data-element='dropdown'>{trigger}</div>;
   }
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative" ref={dropdownRef} data-element='dropdown'>
       {trigger}
 
       <div

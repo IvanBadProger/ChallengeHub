@@ -29,7 +29,7 @@ export const SITE_CONFIG = {
     initials: 'ВИ', // fix: будем вычислять потом
   },
 
-  technologies: ['AstroJS', 'TypeScript', 'Tailwind CSS', 'React', 'Vite'],
+  technologies: ['AstroJS', 'TypeScript', 'Tailwind CSS', 'React', 'Vite', 'SSR'],
 
   social: {
     github: 'https://github.com/IvanBadProger/ChallengeHub',

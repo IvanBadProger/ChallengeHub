@@ -19,7 +19,7 @@ const { category, description, difficulty, title, solution } = Astro.props;
   />
 
   <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-    <div>
+    <div class="flex flex-col gap-2">
       <div class="flex items-center space-x-3 mb-2">
         <CategoryBadge category={category} />
         <DifficultyBadge difficulty={difficulty} />

@@ -10,7 +10,9 @@ export const DIFFICULTY_FILTERS: FilterButton[] = [
 ];
 
 export const CATEGORY_FILTERS: FilterButton[] =
-  (Object.keys(CATEGORY_LABELS) as Category[]).map((key) => ({
+  [{
+    label: "Все категории", filter: undefined
+  }, ...(Object.keys(CATEGORY_LABELS) as Category[]).map((key) => ({
     filter: key,
     label: CATEGORY_LABELS[key]
-  }));
+  }))];

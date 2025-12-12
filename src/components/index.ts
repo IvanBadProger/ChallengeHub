@@ -6,3 +6,4 @@ export { TechnologyTags } from './TechnologyTags';
 export { ChallengeCard } from './ChallengeCard';
 export { ChallengeGrid } from './ChallengeGrid';
 export { Pagination } from './Pagination'
+export { SocialLink } from './SocialLink'

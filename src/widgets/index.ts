@@ -6,5 +6,5 @@ export { default as CTASection } from './CTASection.astro';
 export { MobileMenu } from './MobileMenu';
 export { DifficultyBadge } from './DifficultyBadge';
 export { CategoryBadge } from './CategoryBadge';
-export { default as ContentList } from './ContentList.astro';
+export { ContentList } from './ContentList.tsx';
 export { ChallengeFilter } from './FilteredChallenges';

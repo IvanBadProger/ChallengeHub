@@ -1,5 +1,5 @@
 export const SunIcon = ({ className = '' }: { className?: string }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" data-element='sun-icon'>
     <path
       strokeLinecap="round"
       strokeLinejoin="round"

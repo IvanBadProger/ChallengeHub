@@ -52,7 +52,8 @@ const finalCanonicalUrl = getCanonicalUrl();
   <body class="bg-secondary-50 text-primary min-h-screen flex flex-col">
     <Header />
 
-    <main class="flex-grow mx-auto px-4 py-8 flex flex-col gap-8">
+    <!-- fix: чомнительно про фикс ширину -->
+    <main class="flex-grow mx-auto flex flex-col gap-8 w-[80vw]">
       <slot />
 
       <ScrollToTop client:load />

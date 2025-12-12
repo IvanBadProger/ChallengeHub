@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/kit';
-import { ArrowTopIcon } from '@/components/icons';
+import { ArrowIcon } from '@/components/icons';
 
 export const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -38,7 +38,7 @@ export const ScrollToTop = () => {
       className="!rounded-full w-12 h-12 !p-0 shadow-lg hover:shadow-xl transition-all duration-300 fixed bottom-6 right-6 z-50 animate-fade-in"
       title="Вернуться наверх"
     >
-      <ArrowTopIcon />
+      <ArrowIcon direction='up' />
     </Button>
   );
 };

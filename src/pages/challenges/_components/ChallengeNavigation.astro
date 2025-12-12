@@ -1,4 +1,5 @@
 ---
+import { ArrowIcon } from '@/components/icons';
 import { Button, Card } from '@/components/kit';
 import { INTERNAL_LINKS } from '@/data/config';
 
@@ -10,8 +11,8 @@ interface Props {
 const { currentId, totalChallenges } = Astro.props;
 ---
 
-<Card>
-  <h3 class="text-lg font-semibold mb-4">🧭 Навигация</h3>
+<Card className="inline-flex justify-center">
+  <h3 class="text-lg font-semibold mb-4 text-neutral-900">🧭 Навигация</h3>
   <div class="space-y-2">
     {
       // fix: когда id поменяются исправить валидацию
@@ -19,9 +20,10 @@ const { currentId, totalChallenges } = Astro.props;
         <Button
           href={INTERNAL_LINKS.challenge(currentId - 1)}
           variant="outline"
-          className="w-full justify-center"
+          className="w-full justify-center gap-2"
         >
-          ← Предыдущее
+          <ArrowIcon direction="left" />
+          <span class="hidden sm:inline">Предыдущее</span>
         </Button>
       )
     }
@@ -30,9 +32,10 @@ const { currentId, totalChallenges } = Astro.props;
         <Button
           href={INTERNAL_LINKS.challenge(currentId + 1)}
           variant="outline"
-          className="w-full justify-center"
+          className="w-full justify-center gap-2"
         >
-          Следующее →
+          <span class="hidden sm:inline">Следующее</span>
+          <ArrowIcon direction="right" />
         </Button>
       )
     }

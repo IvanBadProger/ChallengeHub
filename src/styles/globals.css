@@ -171,6 +171,15 @@
     transition:
       background-color 0.3s ease,
       color 0.3s ease;
+    font-size: 18px;
+  }
+
+
+  /* Для очень маленьких экранов */
+  @media (max-width: 375px) {
+    html {
+      font-size: 16px;
+    }
   }
 
   /* Скроллбар */

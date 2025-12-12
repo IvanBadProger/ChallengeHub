@@ -67,6 +67,7 @@ export const Button = ({
   };
 
   const baseClasses = clsx(
+    'cursor-pointer',
     'inline-flex items-center justify-center',
     'rounded-md font-medium',
     'transition-colors duration-200',
@@ -94,6 +95,7 @@ export const Button = ({
         rel={linkRel}
         target={linkTarget}
         onClick={isDisabled ? (e) => e.preventDefault() : onClick}
+        data-element={'button'}
       >
         {loading && (
           <span className="mr-2" aria-hidden="true">
@@ -107,6 +109,7 @@ export const Button = ({
 
   return (
     <button
+      data-element={'button'}
       type={type}
       className={combinedClasses}
       onClick={onClick}

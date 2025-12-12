@@ -4,6 +4,8 @@ import { clsx } from 'clsx';
 export type BadgeVariant = 'primary' | 'secondary' | 'accent' | 'outline';
 export type BadgeSize = 'sm' | 'md' | 'lg';
 
+const dataElement = 'badge'
+
 interface BaseBadgeProps {
   variant?: BadgeVariant;
   size?: BadgeSize;
@@ -67,6 +69,9 @@ export const Badge: React.FC<BadgeProps> = ({
     rounded ? 'rounded-full' : 'rounded-md',
     variantClasses[variant],
     sizeClasses[size],
+    'px-2 py-0.5 text-xs',
+    size === 'md' && 'sm:px-3 sm:py-1 sm:text-sm',
+    size === 'lg' && 'sm:px-4 sm:py-1.5 sm:text-base',
     className
   );
 
@@ -96,6 +101,7 @@ export const Badge: React.FC<BadgeProps> = ({
           target={external ? '_blank' : undefined}
           rel={external ? 'noopener noreferrer' : undefined}
           {...linkProps}
+          data-element={dataElement}
         >
           {content}
         </a>
@@ -105,7 +111,8 @@ export const Badge: React.FC<BadgeProps> = ({
     case 'button': {
       const { type = 'button', ...buttonProps } = props as BadgeAsButtonProps;
       return (
-        <button type={type} className={baseClasses} onClick={onClick} {...buttonProps}>
+        <button type={type} className={baseClasses} onClick={onClick} {...buttonProps}
+          data-element={dataElement}>
           {content}
         </button>
       );
@@ -113,7 +120,8 @@ export const Badge: React.FC<BadgeProps> = ({
 
     default: {
       return (
-        <span className={baseClasses} onClick={onClick}>
+        <span className={baseClasses} onClick={onClick}
+          data-element={dataElement}>
           {content}
         </span>
       );

@@ -1,6 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import { Section, Container } from '@/components/kit';
+import { Section, Container, Accordeon } from '@/components/kit';
 import { ChallengeHeader, ChallengeMeta, ChallengeNavigation } from './_components';
 import { ApiService } from '@/services/ApiService';
 import { ContentList } from '@/widgets';
@@ -31,6 +31,9 @@ const description = getDescription();
 
 const canonicalUrl = INTERNAL_LINKS.challenge(Number(id));
 const robots = 'index, follow';
+
+const hasTips = challenge.tips.length > 0;
+const hasResources = challenge.resources.length > 0;
 ---
 
 <Layout title={title} description={description} canonicalUrl={canonicalUrl} robots={robots}>
@@ -38,7 +41,7 @@ const robots = 'index, follow';
   <ChallengeHeader {...challenge} />
 
   <!-- Контент задания -->
-  <Section>
+  <Section className="flex justify-stretch items-stretch">
     <Container size="narrow" className="grid grid-cols-1 md:grid-cols-3 gap-6">
       <!-- Основной контент -->
       <div class="md:col-span-2 space-y-6">
@@ -54,40 +57,49 @@ const robots = 'index, follow';
         </ContentList>
 
         <!-- Подсказки -->
-        <ContentList title="Подсказки" numbered={true}>
-          {
-            challenge.tips.map((t) => (
-              <li>
-                <span class="text-neutral-800">{t}</span>
-              </li>
-            ))
-          }
-        </ContentList>
+        {
+          hasTips && (
+            <Accordeon title="Подсказки">
+              <ul>
+                {challenge.tips.map((t) => (
+                  <li>
+                    <span class="text-neutral-800">{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </Accordeon>
+          )
+        }
       </div>
 
       <!-- Сайдбар -->
-      <div class="space-y-6">
+      <div class="flex flex-col gap-6">
         <ChallengeMeta challenge={challenge} />
 
-        <!-- Ресурсы -->
-        <ContentList title="📚 Ресурсы" numbered={false}>
-          {
-            challenge.resources.map(({ title, url }) => (
-              <li>
-                <a
-                  href={url}
-                  class="text-primary-600 hover:text-primary-800 text-sm block py-1"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {title}
-                </a>
-              </li>
-            ))
-          }
-        </ContentList>
+        {
+          hasResources && (
+            <ContentList title="📚 Ресурсы" numbered={false}>
+              {challenge.resources.map(({ title, url }) => (
+                <li>
+                  <a
+                    href={url}
+                    class="text-primary-600 hover:text-primary-800 text-sm block py-1"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {title}
+                  </a>
+                </li>
+              ))}
+            </ContentList>
+          )
+        }
 
-        <ChallengeNavigation currentId={Number(id)} totalChallenges={meta.total} />
+        <ChallengeNavigation
+          currentId={Number(id)}
+          totalChallenges={meta.total}
+          class:list={'mx-auto'}
+        />
       </div>
     </Container>
   </Section>

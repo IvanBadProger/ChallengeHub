@@ -1,7 +1,6 @@
 import type { Challenge } from '@/data/types';
 import { useChallengeFilter } from '../hooks/useChallengeFilter';
 import { FilterButtons } from './FilterButtons';
-import { ActiveFilters } from './ActiveFilters';
 import { EmptyState } from './EmptyState';
 import { Button, Loader } from '@/components/kit';
 import { CATEGORY_FILTERS, DIFFICULTY_FILTERS } from '../constants';
@@ -59,14 +58,15 @@ export function ChallengeFilter({ initialChallenges }: ChallengeFilterProps) {
         inactiveClass={INACTIVE_CLASS}
       />
 
-      {/* Активные фильтры */}
-      <ActiveFilters
-        activeDifficulty={activeDifficulty}
-        activeCategory={activeCategory}
-        difficultyFilters={DIFFICULTY_FILTERS}
-        categoryFilters={CATEGORY_FILTERS}
-        onReset={resetFilters}
-      />
+      {(activeCategory || activeDifficulty) &&
+        <Button
+          onClick={resetFilters}
+          variant="outline"
+          size="sm"
+        >
+          Сбросить фильтры
+        </Button>
+      }
 
       {/* Статистика */}
       <div className="mb-4 text-sm text-neutral-700">Найдено заданий: {total}</div>
