@@ -1,0 +1,36 @@
+---
+import clsx from 'clsx';
+import type { ColorVariant } from '@/data/types';
+
+export interface Props {
+  icon: string;
+  name: string;
+  colorVariant?: ColorVariant;
+  size?: 'sm' | 'md';
+}
+
+const { icon, name, colorVariant = 'primary', size = 'md' } = Astro.props;
+
+const colorClasses: Record<ColorVariant, string> = {
+  primary: 'bg-primary-100 text-primary-800 border-primary-200 hover:border-primary-300',
+  secondary: 'bg-secondary-100 text-secondary-800 border-secondary-200 hover:border-secondary-300',
+  accent: 'bg-accent-100 text-accent-800 border-accent-200 hover:border-accent-300',
+};
+
+const sizeClasses = {
+  sm: 'p-2 text-sm',
+  md: 'p-3 md:p-4 text-base',
+};
+---
+
+<div
+  class={clsx(
+    'rounded-lg text-center border transition-all duration-200',
+    'hover:shadow-card-hover hover:-translate-y-0.5',
+    colorClasses[colorVariant],
+    sizeClasses[size]
+  )}
+>
+  <div class="text-2xl mb-2" aria-hidden="true">{icon}</div>
+  <div class="font-semibold">{name}</div>
+</div>

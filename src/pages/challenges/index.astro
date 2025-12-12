@@ -1,47 +1,78 @@
 ---
-import { ChallengeFilter } from "../../components/challenges/FilteredChallenges";
-import Layout from "../../layouts/Layout.astro";
+import Layout from '@/layouts/Layout.astro';
+import { Section, Container } from '@/components/kit';
+import { ApiService } from '@/services/ApiService';
+import { CategorySchema, DifficultySchema } from '@/data/schemas';
+import { ChallengeFilter } from '@/widgets';
+import { INTERNAL_LINKS } from '@/data/config';
 
-// Получаем параметры из URL
-const paramss = Astro.url.searchParams;
-const [difficulty, category] = [
-  paramss.get("difficulty"),
-  paramss.get("category"),
+const params = Astro.url.searchParams;
+const [{ data: difficulty }, { data: category }, page] = [
+  DifficultySchema.safeParse(params.get('difficulty')),
+  CategorySchema.safeParse(params.get('category')),
+  params.get('page'),
 ];
 
-// Формируем URL для API с учетом параметров
-const baseUrl = import.meta.env.DEV
-  ? "http://localhost:4321"
-  : import.meta.env.SITE || "";
-const params = new URLSearchParams();
-if (difficulty) params.append("difficulty", difficulty);
-if (category) params.append("category", category);
+const hasFilters = difficulty || category || page;
+const activeFilters = [];
 
-const challengesUrl = `${baseUrl}/api/challenges.json?${params.toString()}`;
+if (difficulty) activeFilters.push(`сложность: ${difficulty}`);
+if (category) activeFilters.push(`категория: ${category}`);
+if (page) activeFilters.push(`страница: ${page}`);
 
-let challengesData;
+const baseTitle = 'Все задания - ChallengeHub';
+const title = activeFilters.length > 0 ? `${activeFilters.join(', ')} | ${baseTitle}` : baseTitle;
 
-try {
-  const response = await fetch(challengesUrl);
-  challengesData = await response.json();
+const baseDescription =
+  'Выберите задание по уровню сложности и категории. Развивайте навыки, решая практические задачи.';
+const description =
+  activeFilters.length > 0
+    ? `Задания с фильтрами: ${activeFilters.join(', ')}. ${baseDescription}`
+    : baseDescription;
 
-  if (!challengesData.success) {
-    throw new Error("Failed to fetch challenges");
-  }
-} catch (error) {
-  console.error("API Error:", error);
-}
+// Каноническая ссылка ВСЕГДА без параметров
+const canonicalUrl = INTERNAL_LINKS.CHALLENGES;
+
+const robots = hasFilters ? 'noindex, follow' : 'index, follow';
+
+const challengesData = await ApiService.fetchChallenges({
+  category,
+  difficulty,
+  page: Number(page),
+});
 ---
 
-<Layout title="Все задания - ChallengeHub">
-  <div class="space-y-8">
-    <div>
-      <h1 class="text-4xl font-bold text-gray-900 mb-4">Все задания</h1>
-      <p class="text-gray-600 text-lg">
-        Выберите задание по уровню сложности и категории
-      </p>
-    </div>
+<Layout title={title} description={description} canonicalUrl={canonicalUrl} robots={robots}>
+  <!-- Заголовок страницы -->
+  <Section>
+    <Container>
+      <h1 class="text-4xl font-bold text-neutral-900 mb-4">
+        {activeFilters.length > 0 ? `Задания (${activeFilters.join(', ')})` : 'Все задания'}
+      </h1>
+      <p class="text-neutral-700 text-lg">Выберите задание по уровню сложности и категории</p>
 
-    <ChallengeFilter initialChallenges={challengesData.data} client:load />
-  </div>
+      <!-- Отображение активных фильтров -->
+      {
+        activeFilters.length > 0 && (
+          <div class="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-100">
+            <p class="text-sm font-medium text-blue-800 mb-2">Активные фильтры:</p>
+            <div class="flex flex-wrap gap-2">
+              {activeFilters.map((filter) => (
+                <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                  {filter}
+                </span>
+              ))}
+            </div>
+          </div>
+        )
+      }
+    </Container>
+  </Section>
+
+  <!-- Фильтры и задания -->
+  <Section>
+    <Container>
+      <ChallengeFilter initialChallenges={challengesData.data} client:load />
+    </Container>
+  </Section>
 </Layout>

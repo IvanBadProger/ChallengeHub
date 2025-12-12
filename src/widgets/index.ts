@@ -1,0 +1,10 @@
+export { ThemeSelector } from './ThemeSelector';
+export { default as Header } from './Header.astro';
+export { default as Footer } from './Footer.astro';
+export { ScrollToTop } from './ScrollToTop';
+export { default as CTASection } from './CTASection.astro';
+export { MobileMenu } from './MobileMenu';
+export { DifficultyBadge } from './DifficultyBadge';
+export { CategoryBadge } from './CategoryBadge';
+export { default as ContentList } from './ContentList.astro';
+export { ChallengeFilter } from './FilteredChallenges';

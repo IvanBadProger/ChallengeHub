@@ -1,16 +1,32 @@
 ---
-import Header from "./components/Header.astro";
-import Footer from "./components/Footer.astro";
-import "../styles/globals.css";
-import { SITE_CONFIG } from "../data/config";
+import '@/styles/globals.css';
+import { SITE_CONFIG } from '@/data/config';
+import { Footer, Header, ScrollToTop } from '@/widgets';
 
 export interface Props {
   title?: string;
   description?: string;
+  canonicalUrl?: string;
+  robots?: string;
 }
 
-const { title = SITE_CONFIG.name, description = SITE_CONFIG.description } =
-  Astro.props;
+const {
+  title = SITE_CONFIG.name,
+  description = SITE_CONFIG.description,
+  canonicalUrl,
+  robots = 'index, follow',
+} = Astro.props;
+
+// 3. Автоматическая генерация канонического URL, если не указан вручную
+const getCanonicalUrl = () => {
+  if (canonicalUrl) {
+    return canonicalUrl.startsWith('http') ? canonicalUrl : `${Astro.url.origin}${canonicalUrl}`;
+  }
+  // Стандартный канонический URL - текущая страница
+  return Astro.url.origin + Astro.url.pathname;
+};
+
+const finalCanonicalUrl = getCanonicalUrl();
 ---
 
 <!doctype html>
@@ -20,19 +36,49 @@ const { title = SITE_CONFIG.name, description = SITE_CONFIG.description } =
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
 
-    <!-- Open Graph -->
+    <link rel="canonical" href={finalCanonicalUrl} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={finalCanonicalUrl} />
+    <meta property="og:image" content={`${Astro.url.origin}/og-image.jpg`} />
+    <meta property="og:locale" content="ru_RU" />
   </head>
-  <body class="bg-gray-50 min-h-screen flex flex-col">
+
+  <body class="bg-secondary-50 text-primary min-h-screen flex flex-col">
     <Header />
 
-    <main class="flex-grow container mx-auto px-4 py-8">
+    <main class="flex-grow mx-auto px-4 py-8 flex flex-col gap-8">
       <slot />
+
+      <ScrollToTop client:load />
     </main>
 
     <Footer />
   </body>
 </html>
+
+<script is:inline>
+  // Устанавливаем тему из localStorage сразу при загрузке
+  (function () {
+    try {
+      const savedTheme = localStorage.getItem('theme');
+      const htmlEl = document.documentElement;
+
+      if (savedTheme) {
+        htmlEl.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'dark') {
+          htmlEl.classList.add('dark');
+        } else {
+          htmlEl.classList.remove('dark');
+        }
+        // Синхронизируем куку для SSR
+        document.cookie = `theme=${savedTheme}; path=/; max-age=31536000`;
+      }
+    } catch (e) {}
+  })();
+</script>

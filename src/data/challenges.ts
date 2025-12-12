@@ -3,344 +3,302 @@ import type { Challenge } from './types';
 export const challenges: Challenge[] = [
   {
     id: 1,
-    title: "Персональная визитка",
-    description: "Создайте простую HTML-страницу с информацией о себе",
-    difficulty: "beginner",
-    category: "html",
+    title: 'Кликер с системой достижений',
+    description: 'Создайте игру-кликер с прокачкой и достижениями',
+    difficulty: 'intermediate',
+    category: 'project',
     requirements: [
-      "Семантическая HTML-разметка (header, main, footer)",
-      "Ваше фото и краткая информация",
-      "Ссылки на социальные сети",
-      "Адаптивный дизайн"
+      'Основной клик-механизм с увеличением очков',
+      'Покупка улучшений (увеличение клика, авто-кликеры)',
+      'Система достижений с прогрессом',
+      'Сохранение прогресса в localStorage',
+      'Анимации кликов и покупок улучшений',
     ],
     tips: [
-      "Используйте Flexbox для центрирования контента",
-      "Добавьте :hover эффекты для интерактивности",
-      "Подберите гармоничную цветовую схему"
+
     ],
     resources: [
-      {
-        title: "MDN HTML Basics",
-        url: "https://developer.mozilla.org/ru/docs/Learn/HTML/Introduction_to_HTML/Getting_started"
-      },
-      {
-        title: "CSS Flexbox Guide",
-        url: "https://css-tricks.com/snippets/css/a-guide-to-flexbox/"
-      },
-      {
-        title: "Color Theory for Designers",
-        url: "https://www.smashingmagazine.com/2010/01/color-theory-for-designers-part-1-the-meaning-of-color/"
-      }
+
     ],
-    tech: ["HTML", "CSS"]
+    tech: ['HTML', 'CSS', 'JavaScript', 'LocalStorage', 'React'],
+    solution: null,
   },
   {
     id: 2,
-    title: "Анимированная кнопка",
-    description: "Создайте красивую интерактивную кнопку с CSS-анимациями",
-    difficulty: "beginner",
-    category: "css",
+    title: 'Определитель четности чисел',
+    description: 'Создайте интерфейс для определения четности или нечетности числа',
+    difficulty: 'beginner',
+    category: 'algorithms',
     requirements: [
-      "Плавные transition эффекты",
-      "Анимация при наведении и клике",
-      "Кастомные свойства CSS",
-      "Кроссбраузерная совместимость"
+      'Поле ввода для числа',
+      'Кнопка "Проверить"',
+      'Отображение результата (четное/нечетное)',
+      'Валидация ввода (только числа)',
+      'Анимация при проверке',
+      'Подсветка результата разными цветами',
+      'История последних проверок'
     ],
     tips: [
-      "Используйте transform для плавных анимаций",
-      "Экспериментируйте с box-shadow для глубины",
-      "Тестируйте на разных устройствах"
+      'Используйте оператор % (остаток от деления)',
+      'Обрабатывайте случай с нулем (0 - четное число)',
+      'Для валидации используйте type="number" или регулярные выражения',
+      'Добавьте поддержку отрицательных чисел',
+      'Сделайте сброс результата при очистке поля'
     ],
-    resources: [
-      {
-        title: "CSS Transitions Guide",
-        url: "https://developer.mozilla.org/ru/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions"
-      },
-      {
-        title: "Transform Property MDN",
-        url: "https://developer.mozilla.org/ru/docs/Web/CSS/transform"
-      },
-      {
-        title: "Modern CSS Solutions",
-        url: "https://moderncss.dev/"
-      }
-    ],
-    tech: ["HTML", "CSS"]
+    resources: [],
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    solution: null
   },
   {
     id: 3,
-    title: "Модальное окно",
-    description: "Реализуйте всплывающее модальное окно с затемнением фона",
-    difficulty: "beginner",
-    category: "javascript",
+    title: 'Простой калькулятор',
+    description: 'Создайте калькулятор с базовыми арифметическими операциями',
+    difficulty: 'beginner',
+    category: 'project',
     requirements: [
-      "Открытие/закрытие по клику на кнопку",
-      "Затемнение фона (оверлей)",
-      "Закрытие по клику вне окна и на ESC",
-      "Плавные анимации появления"
+      'Кнопки цифр от 0 до 9',
+      'Операции: сложение, вычитание, умножение, деление',
+      'Кнопка очистки (C) и удаления последнего символа (CE)',
+      'Кнопка равно (=) для вычисления',
+      'Динамическое отображение ввода и результата',
+      'Обработка деления на ноль'
     ],
     tips: [
-      "Используйте CSS transition для анимаций",
-      "Добавьте focus trap для доступности",
-      "Управляйте состоянием через data-атрибуты"
+      'Старайтесь не использовать eval()',
+      'Храните текущую операцию и предыдущее число в состоянии',
+      'Ограничьте количество символов на экране',
+      'Добавьте клавиатурный ввод',
+      'Обработайте повторное нажатие равно (продолжение вычислений)'
     ],
-    resources: [
-      {
-        title: "JavaScript Events",
-        url: "https://developer.mozilla.org/ru/docs/Web/API/Event"
-      },
-      {
-        title: "CSS Transitions",
-        url: "https://developer.mozilla.org/ru/docs/Web/CSS/transition"
-      },
-      {
-        title: "ARIA Modal Pattern",
-        url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal/"
-      }
-    ],
-    tech: ["HTML", "CSS", "JavaScript"]
+    resources: [{
+      title: "Как работает eval()",
+      url: "https://ru.hexlet.io/qna/javascript/questions/kak-rabotat-metod-eval-v-js"
+    }],
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    solution: null
   },
   {
     id: 4,
-    title: "Таймер Pomodoro",
-    description: "Создайте таймер для техники Pomodoro с рабочими интервалами",
-    difficulty: "intermediate",
-    category: "javascript",
+    title: 'Таблица умножения',
+    description: 'Создайте интерактивную таблицу умножения',
+    difficulty: 'beginner',
+    category: 'layout',
     requirements: [
-      "Настройка времени работы и отдыха",
-      "Визуальный отсчет времени",
-      "Звуковое уведомление",
-      "Счетчик завершенных pomodoro"
+      'Выбор диапазона таблицы (например, от 1 до 10)',
+      'Генерация таблицы умножения в виде сетки',
+      'Подсветка строки и столбца при наведении',
+      'Поиск конкретного результата умножения',
+      'Анимация появления таблицы',
+      'Режим тренировки (скрыть ответы)'
     ],
     tips: [
-      "Используйте setInterval для отсчета времени",
-      "Храните состояние таймера в объекте",
-      "Добавьте localStorage для сохранения статистики"
+      'Используйте вложенные циклы для генерации таблицы',
+      'Применяйте CSS Grid для создания сетки',
+      'Оптимизируйте производительность при больших диапазонах',
+      'Добавьте кэширование уже вычисленных значений',
+      'Используйте data-атрибуты для хранения множителей',
     ],
-    resources: [
-      {
-        title: "JavaScript Date Object",
-        url: "https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Date"
-      },
-      {
-        title: "Web Audio API",
-        url: "https://developer.mozilla.org/ru/docs/Web/API/Web_Audio_API"
-      },
-      {
-        title: "LocalStorage Guide",
-        url: "https://developer.mozilla.org/ru/docs/Web/API/Window/localStorage"
-      }
-    ],
-    tech: ["HTML", "CSS", "JavaScript", "LocalStorage"]
+    resources: [],
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    solution: null
   },
   {
     id: 5,
-    title: "Поиск пользователей GitHub",
-    description: "Создайте приложение для поиска и отображения профилей GitHub",
-    difficulty: "intermediate",
-    category: "javascript",
+    title: 'Калькулятор геометрических фигур',
+    description: 'Создайте калькулятор для расчета площадей, объемов и периметров',
+    difficulty: 'beginner',
+    category: 'algorithms',
     requirements: [
-      "Поиск по username через GitHub API",
-      "Отображение аватара и основной информации",
-      "Список репозиториев пользователя",
-      "Обработка ошибок и loading states"
+      'Выбор фигуры (круг, квадрат, треугольник, прямоугольник, сфера, куб)',
+      'Ввод параметров фигуры (радиус, сторона, высота и т.д.)',
+      'Автоматический расчет всех доступных характеристик',
+      'Визуализация фигуры с размерами',
+      'История вычислений',
+      'Единицы измерения (см, м, мм)'
     ],
     tips: [
-      "Используйте debounce для поиска",
-      "Кэшируйте результаты запросов",
-      "Добавьте пагинацию для репозиториев"
+      'Используйте Math.PI для точных вычислений с кругом',
+      'Для треугольника проверяйте возможность существования по сторонам',
+      'Округляйте результаты до разумного количества знаков',
+      'Используйте Canvas или SVG для рисования фигур',
+      'Храните формулы в отдельном объекте для легкого расширения',
+      'Добавьте валидацию ввода (положительные числа)'
     ],
-    resources: [
-      {
-        title: "GitHub REST API",
-        url: "https://docs.github.com/en/rest"
-      },
-      {
-        title: "JavaScript Fetch API",
-        url: "https://developer.mozilla.org/ru/docs/Web/API/Fetch_API"
-      },
-      {
-        title: "Debounce Function",
-        url: "https://davidwalsh.name/javascript-debounce-function"
-      }
-    ],
-    tech: ["HTML", "CSS", "JavaScript", "API"]
+    resources: [],
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    solution: null
   },
   {
     id: 6,
-    title: "Интерактивная карта путешествий",
-    description: "Разработайте карту с отметками посещенных мест",
-    difficulty: "intermediate",
-    category: "project",
+    title: 'Карточка профиля',
+    description: 'Создайте адаптивную карточку профиля с информацией о пользователе',
+    difficulty: 'beginner',
+    category: 'layout',
     requirements: [
-      "Интеграция с картами (Leaflet.js)",
-      "Добавление и удаление маркеров",
-      "Модальное окно с информацией о месте",
-      "Адаптивный дизайн для мобильных"
+      'Фото пользователя с круглым обрезом',
+      'Имя, должность и краткая биография',
+      'Ссылки на социальные сети с иконками',
+      'Кнопка "Связаться" с hover-эффектом',
+      'Адаптивный дизайн (3 версии: desktop, tablet, mobile)',
+      'Темная/светлая тема с переключателем',
+      'Микро-анимации при наведении'
     ],
     tips: [
-      "Начните с простой SVG карты для прототипа",
-      "Используйте локальное хранилище для данных",
-      "Оптимизируйте производительность с маркерами"
+      'Используйте CSS clip-path для круглого фото',
+      'Flexbox для расположения элементов',
+      'CSS variables для цветов темы',
+      'Псевдоэлементы для декоративных деталей',
+      'Медиазапросы для адаптивности'
     ],
-    resources: [
-      {
-        title: "Leaflet.js Documentation",
-        url: "https://leafletjs.com/"
-      },
-      {
-        title: "SVG Basics",
-        url: "https://developer.mozilla.org/ru/docs/Web/SVG"
-      },
-      {
-        title: "LocalStorage API",
-        url: "https://developer.mozilla.org/ru/docs/Web/API/Window/localStorage"
-      }
-    ],
-    tech: ["HTML", "CSS", "JavaScript", "API", "Leaflet.js"]
+    resources: [],
+    tech: ['HTML', 'CSS'],
+    solution: null
   },
   {
     id: 7,
-    title: "Система управления задачами",
-    description: "Создайте полнофункциональное приложение для управления задачами",
-    difficulty: "advanced",
-    category: "project",
+    title: 'Ценовые планы',
+    description: 'Создайте секцию с тарифами подписки и переключателем периодов',
+    difficulty: 'beginner',
+    category: 'layout',
     requirements: [
-      "CRUD операции для задач",
-      "Фильтрация по статусу и категориям",
-      "Drag & drop сортировка",
-      "Экспорт данных в JSON"
+      '3 тарифа с разными возможностями',
+      'Toggle переключатель между месячной/годовой оплатой',
+      'Выделение рекомендованного тарифа',
+      'Список возможностей для каждого тарифа',
+      'Кнопки выбора с разными состояниями',
+      'Анимация при переключении периодов',
+      'Адаптивная сетка на CSS Grid'
     ],
     tips: [
-      "Разделите логику на модули",
-      "Используйте паттерн Observer для обновлений",
-      "Протестируйте edge cases"
+      'Используйте :checked для toggle переключателя',
+      'CSS transform для анимации переключения',
+      'Псевдоэлемент ::before для отметки "рекомендовано"',
+      'CSS Grid для создания равных колонок',
+      'Не забудьте про доступность (aria-attributes)'
     ],
-    resources: [
-      {
-        title: "JavaScript Design Patterns",
-        url: "https://www.patterns.dev/posts/classic-design-patterns/"
-      },
-      {
-        title: "HTML5 Drag and Drop API",
-        url: "https://developer.mozilla.org/ru/docs/Web/API/HTML_Drag_and_Drop_API"
-      },
-      {
-        title: "JSON Manipulation",
-        url: "https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/JSON"
-      }
-    ],
-    tech: ["HTML", "CSS", "JavaScript", "LocalStorage"]
+    resources: [],
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    solution: null
   },
   {
     id: 8,
-    title: "Виртуальная клавиатура",
-    description: "Реализуйте виртуальную клавиатуру с поддержкой разных языков",
-    difficulty: "advanced",
-    category: "javascript",
+    title: 'Таймер Pomodoro с круговым индикатором',
+    description: 'Создайте таймер для техники Pomodoro с визуализацией прогресса',
+    difficulty: 'intermediate',
+    category: 'project',
     requirements: [
-      "Полная раскладка клавиатуры",
-      "Переключение между языками",
-      "Анимация нажатия клавиш",
-      "Интеграция с текстовыми полями"
+      'Настройка времени работы и отдыха',
+      'Круговой индикатор прогресса',
+      'Уведомления о смене периодов',
+      'История завершенных pomodoro',
+      'Темная/светлая тема',
+      'Звуковые сигналы',
+      'Пауза и сброс таймера'
     ],
     tips: [
-      "Создайте компонентный подход для клавиш",
-      "Используйте data-атрибуты для конфигурации",
-      "Оптимизируйте для touch устройств"
+      'Используйте SVG или CSS conic-gradient для круга',
+      'requestAnimationFrame для плавной анимации',
+      'Web Audio API для звуковых сигналов',
+      'LocalStorage для истории',
+      'Разделите логику таймера и UI'
     ],
     resources: [
-      {
-        title: "JavaScript Events",
-        url: "https://developer.mozilla.org/ru/docs/Web/API/Event"
-      },
-      {
-        title: "CSS Animations Advanced",
-        url: "https://developer.mozilla.org/ru/docs/Web/CSS/CSS_Animations/Using_CSS_animations"
-      },
-      {
-        title: "Accessibility Guidelines",
-        url: "https://www.w3.org/WAI/ARIA/apg/"
-      }
     ],
-    tech: ["HTML", "CSS", "JavaScript"]
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    solution: null
   },
   {
     id: 9,
-    title: "Погодное приложение",
-    description: "Создайте приложение для отображения текущей погоды и прогноза",
-    difficulty: "intermediate",
-    category: "project",
+    title: 'Игра Змейка',
+    description: 'Реализуйте классическую игру "Змейка" с подсчетом очков и уровнями',
+    difficulty: 'beginner',
+    category: 'project',
     requirements: [
-      "Определение местоположения пользователя",
-      "Отображение текущей погоды и прогноза на 5 дней",
-      "Переключение между городами",
-      "Адаптивный дизайн с иконками погоды"
+      'Игровое поле с сеткой',
+      'Управление стрелками клавиатуры',
+      'Рост змейки при поедании еды',
+      'Система очков',
+      'Столкновения со стенами и собой',
+      'Пауза и рестарт игры',
+      'Локальная таблица рекордов'
     ],
     tips: [
-      "Используйте Geolocation API для определения местоположения",
-      "Кэшируйте данные погоды",
-      "Добавьте скелетон-загрузку"
+      'Используйте двумерный массив для игрового поля',
+      'setInterval или requestAnimationFrame для игрового цикла',
+      'Храните змейку как массив координат',
+      'Генерируйте еду в случайных свободных клетках',
+      'Добавьте постепенное увеличение скорости'
     ],
-    resources: [
-      {
-        title: "OpenWeatherMap API",
-        url: "https://openweathermap.org/api"
-      },
-      {
-        title: "Geolocation API",
-        url: "https://developer.mozilla.org/ru/docs/Web/API/Geolocation_API"
-      },
-      {
-        title: "Weather Icons",
-        url: "https://erikflowers.github.io/weather-icons/"
-      }
-    ],
-    tech: ["HTML", "CSS", "JavaScript", "API"]
+    resources: [],
+    tech: ['HTML', 'CSS', 'JavaScript', 'Canvas'],
+    solution: null
   },
   {
     id: 10,
-    title: "Интерпретатор Markdown",
-    description: "Создайте редактор Markdown с предпросмотром в реальном времени",
-    difficulty: "advanced",
-    category: "project",
+    title: 'Игра Арканоид',
+    description: 'Создайте клон классической игры Breakout/Arkanoid с физикой',
+    difficulty: 'intermediate',
+    category: 'project',
     requirements: [
-      "Редактор и предпросмотр в реальном времени",
-      "Подсветка синтаксиса Markdown",
-      "Экспорт результата в HTML",
-      "Поддержка основных элементов Markdown"
+      'Платформа с управлением мышью/клавиатурой',
+      'Разрушаемые блоки разных типов',
+      'Система жизней и очков',
+      'Несколько уровней с разным расположением блоков',
+      'Бонусы (удлинение платформы, дополнительные жизни)',
+      'Физика отскока мяча',
+      'Анимации разрушения блоков'
     ],
     tips: [
-      "Используйте регулярные выражения для парсинга",
-      "Разделите логику на парсер и рендерер",
-      "Добавьте горячие клавиши для форматирования"
+      'Рассчитайте угол отскока от платформы',
+      'Используйте requestAnimationFrame для плавности',
+      'Создайте систему коллизий',
+      'Генерируйте уровни из конфигурационных объектов',
+      'Добавьте частицы при разрушении блоков'
     ],
-    resources: [
-      {
-        title: "Markdown Guide",
-        url: "https://www.markdownguide.org/"
-      },
-      {
-        title: "Regular Expressions",
-        url: "https://developer.mozilla.org/ru/docs/Web/JavaScript/Guide/Regular_Expressions"
-      },
-      {
-        title: "ContentEditable API",
-        url: "https://developer.mozilla.org/ru/docs/Web/HTML/Global_attributes/contenteditable"
-      }
+    resources: [],
+    tech: ['HTML', 'CSS', 'JavaScript', 'Canvas'],
+    solution: null
+  },
+  {
+    id: 11,
+    title: 'Викторина',
+    description: 'Создайте приложение для викторин с таймером и рейтингом',
+    difficulty: 'beginner',
+    category: 'project',
+    requirements: [
+      'Таймер на каждый вопрос',
+      'Система подсчета очков',
+      "Таблица рекордов в localStorage",
+      'Анимации правильных/неправильных ответов',
+      'Импорт вопросов из JSON',
+      'Система подсказок (50/50, доп. время)'
     ],
-    tech: ["HTML", "CSS", "JavaScript", "RegExp"]
+    tips: [
+      'Храните вопросы в отдельном JSON файле',
+      'Делайте shuffle вариантов ответов',
+      'Добавьте прогресс-бар прохождения',
+    ],
+    resources: [],
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    solution: null
+  },
+  {
+    id: 12,
+    title: 'Крестики-нолики',
+    description: 'Создайте игру с ИИ разных уровней сложности и онлайн-режимом',
+    difficulty: 'beginner',
+    category: 'project',
+    requirements: [
+      'Локальный мультиплеер на одном устройстве',
+      'Подсветка выигрышной комбинации',
+      'Анимации ходов',
+      'Адаптивный дизайн'
+    ],
+    tips: [
+      'Храните состояние игры в двумерном массиве',
+    ],
+    resources: [],
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    solution: null
   }
-];
-
-export const getChallengeById = (id: number): Challenge | undefined => {
-  return challenges.find(challenge => challenge.id === id);
-};
-
-export const getChallengesByDifficulty = (difficulty: Challenge['difficulty']): Challenge[] => {
-  return challenges.filter(challenge => challenge.difficulty === difficulty);
-};
-
-export const getChallengesByCategory = (category: Challenge['category']): Challenge[] => {
-  return challenges.filter(challenge => challenge.category === category);
-};
+]

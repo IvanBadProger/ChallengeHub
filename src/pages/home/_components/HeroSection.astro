@@ -1,0 +1,52 @@
+---
+import { Card, Container, Section } from '@/components/kit';
+import { INTERNAL_LINKS } from '@/data/config';
+import { SECTION_IDS } from '@/data/constants';
+import type { ChallengesMeta } from '@/data/types';
+
+interface Props {
+  meta: ChallengesMeta;
+}
+
+const { meta } = Astro.props;
+
+const statsCards = [
+  {
+    value: meta?.total || 0,
+    label: 'Заданий',
+    url: INTERNAL_LINKS.CHALLENGES,
+  },
+  {
+    value: meta?.difficulties?.length || 0,
+    label: 'Уровней сложности',
+    url: INTERNAL_LINKS.CHALLENGES,
+  },
+  {
+    value: meta?.categories?.length || 0,
+    label: 'Категорий',
+    url: INTERNAL_LINKS.CHALLENGES,
+  },
+];
+---
+
+<Section variant="centered" id={SECTION_IDS.hero}>
+  <Card>
+    <h1 class="text-4xl md:text-6xl font-bold text-neutral-900 mb-6">
+      Challenge <span class="text-primary-600">HUB</span>
+    </h1>
+    <p class="text-xl text-neutral-700 mx-auto mb-8">
+      Совершенствуйте навыки фронтенд-разработки через практические задания.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+      {
+        statsCards.map(({ value, label, url }) => (
+          <Card className="text-center" href={url}>
+            <span class="text-3xl font-bold text-primary-600 mb-2 block">{value}</span>
+            <span class="text-neutral-700 block">{label}</span>
+          </Card>
+        ))
+      }
+    </div>
+  </Card>
+</Section>

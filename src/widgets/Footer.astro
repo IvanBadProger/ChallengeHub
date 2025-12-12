@@ -1,0 +1,52 @@
+---
+import { DeveloperCard, SocialLinks, Navigation, TechnologyTags } from '@/components';
+import { SITE_CONFIG } from '@/data/config';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-neutral-50 border-t border-neutral-300 mt-auto transition-colors duration-200">
+  <div class="container mx-auto px-4 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <!-- О проекте -->
+      <div class="md:col-span-2">
+        <h3 class="text-2xl font-bold mb-4 text-primary-900">
+          {SITE_CONFIG.name}
+        </h3>
+        <p class="text-neutral-700 mb-4 leading-relaxed">
+          {SITE_CONFIG.description}
+        </p>
+        <SocialLinks variant="footer" />
+      </div>
+
+      <!-- Навигация -->
+      <div>
+        <h4 class="text-lg font-semibold mb-4 text-neutral-900">Навигация</h4>
+        <Navigation currentPath={Astro.url.pathname} variant="mobile" />
+      </div>
+
+      <!-- Разработчик -->
+      <div>
+        <h4 class="text-lg font-semibold mb-4 text-neutral-900">Разработчик</h4>
+        <DeveloperCard />
+      </div>
+    </div>
+
+    <!-- Технологии -->
+    <div class="mt-8 pt-8 border-t border-neutral-300">
+      <h4 class="text-lg font-semibold mb-4 text-neutral-900 text-center">Технологии проекта</h4>
+      <TechnologyTags />
+    </div>
+
+    <!-- Копирайт -->
+    <div class="border-t border-neutral-300 mt-8 pt-8 text-center">
+      <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <p class="text-neutral-700">
+          &copy; {currentYear}
+          {SITE_CONFIG.name}. Все права защищены.
+        </p>
+        <div class="text-neutral-700 text-sm">Сделано с ❤️ для сообщества разработчиков</div>
+      </div>
+    </div>
+  </div>
+</footer>

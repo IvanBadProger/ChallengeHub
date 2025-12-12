@@ -1,0 +1,26 @@
+---
+import { MobileMenu, Navigation, SocialLinks } from '@/components';
+import { Logo } from '@/components/kit';
+import { ThemeSelector } from './ThemeSelector';
+
+const currentPath = Astro.url.pathname;
+---
+
+<header
+  class="bg-neutral-50 border-b border-neutral-300 sticky top-0 z-50 backdrop-blur-sm transition-colors duration-200"
+>
+  <div class="container mx-auto px-4">
+    <div class="flex justify-between items-center py-4">
+      <Logo />
+
+      <Navigation currentPath={currentPath} variant="desktop" />
+
+      <div class="flex items-center space-x-4">
+        <SocialLinks variant="header" />
+        <MobileMenu currentPath={currentPath} client:load />
+      </div>
+
+      <ThemeSelector client:load initialTheme="light" />
+    </div>
+  </div>
+</header>

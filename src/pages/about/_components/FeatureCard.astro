@@ -1,0 +1,54 @@
+---
+import { Card } from '@/components/kit/Card';
+import type { ColorVariant } from '@/data/types';
+import clsx from 'clsx';
+
+export interface Props {
+  icon?: string;
+  title: string;
+  description?: string;
+  className?: string;
+  colorVariant?: ColorVariant;
+}
+
+const { icon, title, description, className = '', colorVariant = 'primary' } = Astro.props;
+
+const iconColorClasses = {
+  primary: 'text-primary-500 bg-primary-50',
+  secondary: 'text-secondary-500 bg-secondary-50',
+  accent: 'text-accent-500 bg-accent-50',
+};
+
+const titleColorClasses = {
+  primary: 'text-primary-700',
+  secondary: 'text-secondary-700',
+  accent: 'text-accent-700',
+};
+---
+
+<Card
+  className={clsx(
+    'p-6 text-center transition-all duration-300',
+    'hover:shadow-card-hover hover:-translate-y-1',
+    className
+  )}
+>
+  {
+    icon && (
+      <div
+        class={clsx(
+          'text-3xl mb-4 w-16 h-16 rounded-full flex items-center justify-center mx-auto',
+          'transition-colors duration-200',
+          iconColorClasses[colorVariant]
+        )}
+        aria-hidden="true"
+      >
+        {icon}
+      </div>
+    )
+  }
+  <h3 class={clsx('text-xl font-semibold mb-3', titleColorClasses[colorVariant])}>
+    {title}
+  </h3>
+  {description && <p class="text-neutral-700 leading-relaxed">{description}</p>}
+</Card>

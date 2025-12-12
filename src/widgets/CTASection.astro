@@ -1,0 +1,43 @@
+---
+import { Card, Section, type SectionProps } from '@/components/kit';
+
+export interface Props extends SectionProps {
+  title: string;
+  description: string;
+  primaryAction: {
+    text: string;
+    href: string;
+  };
+  secondaryAction?: {
+    text: string;
+    href: string;
+  };
+}
+
+const { title, description, primaryAction, secondaryAction, className } = Astro.props;
+---
+
+<Section variant="centered" className={className}>
+  <Card>
+    <h2 class="text-2xl font-bold text-neutral-900 mb-4">{title}</h2>
+    <p class="text-neutral-700 mb-6">{description}</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a
+        href={primaryAction.href}
+        class="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-800 transition font-medium"
+      >
+        {primaryAction.text}
+      </a>
+      {
+        secondaryAction && (
+          <a
+            href={secondaryAction.href}
+            class="border border-neutral-300 text-neutral-800 px-6 py-3 rounded-lg hover:bg-neutral-50 transition font-medium"
+          >
+            {secondaryAction.text}
+          </a>
+        )
+      }
+    </div>
+  </Card>
+</Section>

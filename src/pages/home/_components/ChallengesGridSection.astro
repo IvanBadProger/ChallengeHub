@@ -1,0 +1,32 @@
+---
+import { ChallengeGrid } from '@/components/ChallengeGrid';
+import { Container, Section } from '@/components/kit';
+import { INTERNAL_LINKS } from '@/data/config';
+import { SECTION_IDS } from '@/data/constants';
+import type { Challenge } from '@/data/types';
+
+interface Props {
+  challenges: Challenge[];
+  challengesOnGrid?: number;
+}
+
+const { challenges, challengesOnGrid = 6 } = Astro.props;
+
+const TITLE_ID = 'qqqqqq';
+---
+
+<Section id={SECTION_IDS.tasks} aria-labelledby={TITLE_ID}>
+  <Container>
+    <div class="flex justify-between items-center mb-8">
+      <h2 class="text-3xl font-bold text-neutral-900" id={TITLE_ID}>Все задания</h2>
+      <a
+        href={INTERNAL_LINKS.CHALLENGES}
+        class="text-primary-600 hover:text-primary-800 font-medium"
+      >
+        Смотреть все →
+      </a>
+    </div>
+
+    <ChallengeGrid challenges={challenges.slice(0, challengesOnGrid)} />
+  </Container>
+</Section>

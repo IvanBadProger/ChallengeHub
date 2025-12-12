@@ -1,0 +1,47 @@
+---
+import clsx from 'clsx';
+import { Card } from '@/components/kit/Card';
+import type { ColorVariant } from '@/data/types';
+
+export interface Props {
+  title: string;
+  items: string[];
+  colorVariant?: ColorVariant;
+}
+
+const { title, items, colorVariant = 'primary' } = Astro.props;
+
+const titleColorClasses = {
+  primary: 'text-primary-600',
+  secondary: 'text-secondary-600',
+  accent: 'text-accent-600',
+};
+
+const bulletColorClasses = {
+  primary: 'text-primary-500',
+  secondary: 'text-secondary-500',
+  accent: 'text-accent-500',
+};
+---
+
+<Card className="p-6">
+  <h3
+    class={clsx(
+      'text-xl font-semibold mb-4 flex items-center gap-2',
+      titleColorClasses[colorVariant]
+    )}
+  >
+    <span class="text-lg">•</span>
+    {title}
+  </h3>
+  <ul class="space-y-2 text-neutral-800">
+    {
+      items.map((item) => (
+        <li class="flex items-start gap-2">
+          <span class={clsx('mt-1 flex-shrink-0', bulletColorClasses[colorVariant])}>•</span>
+          <span>{item}</span>
+        </li>
+      ))
+    }
+  </ul>
+</Card>

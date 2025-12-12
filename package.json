@@ -1,12 +1,14 @@
 {
-  "name": "bizarre-binary",
+  "name": "challenge-hub",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "prettier:check": "prettier --check .",
+    "prettier:fix": "prettier --write ."
   },
   "dependencies": {
     "@astrojs/node": "^9.5.0",
@@ -18,5 +20,9 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "tailwindcss": "^4.1.17"
+  },
+  "devDependencies": {
+    "prettier": "^3.7.3",
+    "prettier-plugin-astro": "^0.14.1"
   }
 }

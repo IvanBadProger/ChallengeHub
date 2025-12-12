@@ -1,0 +1,134 @@
+---
+import { AudienceList, FeatureCard, TechnologyCard } from './_components';
+import { Container, Section } from '@/components/kit';
+import { ABOUT_CONTENT } from '@/data/about-content';
+import Layout from '@/layouts/Layout.astro';
+import clsx from 'clsx';
+import { CTASection } from '@/widgets';
+import type { ColorVariant } from '@/data/types';
+import { INTERNAL_LINKS, SITE_CONFIG } from '@/data/config';
+
+const title = `О проекте | ${SITE_CONFIG.name}`;
+const description =
+  'Узнайте о нашей миссии, как работает платформа и почему нам доверяют. Подробная информация о сервисе.';
+---
+
+<Layout
+  title={title}
+  description={description}
+  robots="index, follow"
+  ,
+  canonicalUrl={INTERNAL_LINKS.ABOUT}
+>
+  <!-- Hero -->
+  <Section variant="centered" background="gray">
+    <Container size="narrow">
+      <h1 class="text-4xl md:text-5xl font-bold text-neutral-900 mb-6">
+        {ABOUT_CONTENT.hero.title}
+        <em class="text-primary-600">
+          {ABOUT_CONTENT.hero.highlightedTitle}
+        </em>
+      </h1>
+      <p class="text-xl text-neutral-700 max-w-3xl mx-auto">
+        {ABOUT_CONTENT.hero.description}
+      </p>
+    </Container>
+  </Section>
+
+  <!-- Миссия -->
+  <Section variant="card">
+    <Container size="narrow">
+      <h2 class="text-3xl font-bold text-neutral-900 mb-6">
+        {ABOUT_CONTENT.mission.title}
+      </h2>
+      <div class="prose prose-lg max-w-none flex flex-col gap-4">
+        {
+          ABOUT_CONTENT.mission.content.map((paragraph, index) => (
+            <p class={clsx('text-neutral-800')}>{paragraph}</p>
+          ))
+        }
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Преимущества -->
+  <Section variant="centered" background="gray">
+    <Container size="normal">
+      <h2 class="text-3xl font-bold text-neutral-900 mb-8">✨ Почему выбирают нас</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {
+          ABOUT_CONTENT.features.map((feature, index) => {
+            const row = Math.floor(index / 3);
+            const col = index % 3;
+            const diagonal = (row + col) % 3;
+
+            const variants: ColorVariant[] = ['primary', 'accent', 'secondary'];
+            const colorVariant = variants[diagonal];
+
+            return (
+              <FeatureCard
+                icon={feature.icon}
+                title={feature.title}
+                description={feature.description}
+                colorVariant={colorVariant}
+              />
+            );
+          })
+        }
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Аудитория -->
+  <Section variant="card">
+    <Container size="narrow">
+      <h2 class="text-3xl font-bold text-neutral-900 mb-6">👨‍💻 Для кого этот проект</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <AudienceList
+          title={ABOUT_CONTENT.audience.beginners.title}
+          items={ABOUT_CONTENT.audience.beginners.items}
+          colorVariant="accent"
+        />
+        <AudienceList
+          title={ABOUT_CONTENT.audience.experienced.title}
+          items={ABOUT_CONTENT.audience.experienced.items}
+          colorVariant="primary"
+        />
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Технологии -->
+  <Section variant="card">
+    <Container size="narrow">
+      <h2 class="text-3xl font-bold text-neutral-900 mb-6">🛠 Технологии в заданиях</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        {
+          ABOUT_CONTENT.technologies.map((tech) => (
+            <TechnologyCard icon={tech.icon} name={tech.name} colorVariant="primary" />
+          ))
+        }
+      </div>
+    </Container>
+  </Section>
+
+  <CTASection
+    title={ABOUT_CONTENT.cta.title}
+    description={ABOUT_CONTENT.cta.description}
+    primaryAction={ABOUT_CONTENT.cta.primaryButton}
+    secondaryAction={ABOUT_CONTENT.cta.secondaryButton}
+  />
+</Layout>
+
+<style>
+  /* Можно добавить кастомные стили для текста если нужно */
+  .prose a {
+    color: var(--color-primary-600);
+    text-decoration: none;
+  }
+
+  .prose a:hover {
+    color: var(--color-primary-700);
+    text-decoration: underline;
+  }
+</style>

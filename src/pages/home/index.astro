@@ -1,0 +1,35 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { ApiService } from '@/services/ApiService';
+import { INTERNAL_LINKS, SITE_CONFIG } from '@/data/config';
+import { ChallengesGridSection, HeroSection } from './_components';
+import { CTASection } from '@/widgets';
+
+const [challengesResponse, meta] = await Promise.all([
+  ApiService.fetchChallenges(),
+  ApiService.fetchMeta(),
+]);
+
+const challenges = challengesResponse.data;
+
+const title = `${SITE_CONFIG.name} | Задания для фронтендеров`;
+const description = SITE_CONFIG.description;
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalUrl={INTERNAL_LINKS.HOME}
+  robots="index, follow"
+>
+  <HeroSection meta={meta} />
+  <ChallengesGridSection challenges={challenges || []} />
+  <CTASection
+    title="Готовы начать?"
+    description="Присоединяйтесь к сообществу начинающих разработчиков и совершенствуйте навыки через практику."
+    primaryAction={{
+      href: INTERNAL_LINKS.CHALLENGES,
+      text: 'Перейти к заданиям',
+    }}
+  />
+</Layout>

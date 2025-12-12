@@ -1,0 +1,43 @@
+---
+import { Breadcrumbs, Button, Container } from '@/components/kit';
+import { INTERNAL_LINKS } from '@/data/config';
+import type { Challenge } from '@/data/types';
+import { CategoryBadge, DifficultyBadge } from '@/widgets';
+
+interface Props extends Omit<Challenge, 'resources' | 'requirements' | 'tech' | 'tips'> {}
+
+const { category, description, difficulty, title, solution } = Astro.props;
+---
+
+<Container className="flex flex-col gap-8">
+  <Breadcrumbs
+    items={[
+      { label: 'Главная', href: INTERNAL_LINKS.HOME },
+      { label: 'Все задания', href: INTERNAL_LINKS.CHALLENGES },
+      { label: title },
+    ]}
+  />
+
+  <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+    <div>
+      <div class="flex items-center space-x-3 mb-2">
+        <CategoryBadge category={category} />
+        <DifficultyBadge difficulty={difficulty} />
+      </div>
+
+      <h1 class="text-3xl md:text-4xl font-bold text-neutral-900">
+        {title}
+      </h1>
+
+      <p class="text-xl text-neutral-700 mt-2">{description}</p>
+    </div>
+
+    {
+      solution && (
+        <Button variant="primary" size="lg" href={solution}>
+          Показать решение
+        </Button>
+      )
+    }
+  </div>
+</Container>

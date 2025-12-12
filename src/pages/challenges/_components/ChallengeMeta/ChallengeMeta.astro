@@ -1,0 +1,34 @@
+---
+import type { Challenge } from '@/data/types';
+import { Card } from '@/components/kit';
+import { CategoryBadge, DifficultyBadge } from '@/widgets';
+import ChallengeMetaItem from './ChallengeMetaItem.astro';
+
+interface Props {
+  challenge: Challenge;
+}
+
+const { challenge } = Astro.props;
+---
+
+<Card>
+  <h3 class="text-lg font-semibold text-neutral-900 mb-4">ℹ️ Информация о задании</h3>
+  <div class="space-y-4">
+    <!-- Сложность -->
+    <ChallengeMetaItem title="Сложность">
+      <DifficultyBadge difficulty={challenge.difficulty} />
+    </ChallengeMetaItem>
+
+    <!-- Категория -->
+    <ChallengeMetaItem title="Категория">
+      <CategoryBadge category={challenge.category} />
+    </ChallengeMetaItem>
+
+    <!-- Технологии -->
+    <ChallengeMetaItem title="Технологии">
+      <span class="text-sm font-medium text-primary-600">
+        {challenge.tech.join(', ')}
+      </span>
+    </ChallengeMetaItem>
+  </div>
+</Card>

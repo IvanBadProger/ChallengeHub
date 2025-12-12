@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Button } from '../components/kit';
+import { challenges } from '../data/challenges';
+import { INTERNAL_LINKS } from '../data/config';
+---
+
+<Layout
+  title="Страница не найдена - ChallengeHub"
+  description="Ой! Кажется, мы потеряли эту страницу. Вернитесь на главную и найдите интересные задания."
+>
+  <div class="min-h-[80vh] flex items-center justify-center px-4">
+    <div class="text-center max-w-2xl mx-auto">
+      <!-- Анимированное число 404 -->
+      <div class="relative mb-8">
+        <div
+          class="text-9xl md:text-[180px] font-bold bg-gradient-to-br from-primary-500 to-purple-600 bg-clip-text text-transparent relative"
+        >
+          404
+          <div
+            class="absolute -inset-4 bg-gradient-to-br from-primary-500/10 to-purple-600/10 blur-xl rounded-full"
+          >
+          </div>
+        </div>
+        <div class="absolute -top-4 -right-4 w-8 h-8 bg-yellow-400 rounded-full animate-ping"></div>
+        <div class="absolute -bottom-2 -left-4 w-6 h-6 bg-red-400 rounded-full animate-bounce">
+        </div>
+      </div>
+
+      <!-- Заголовок и описание -->
+      <h1 class="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
+        Ой! Страница уплыла в космос 🚀
+      </h1>
+
+      <p class="text-xl text-neutral-700 mb-8 max-w-md mx-auto">
+        Кажется, эта страница еще не создана. Но у нас есть много других интересных страниц!
+      </p>
+
+      <!-- Статистика чтобы заинтересовать -->
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8 max-w-md mx-auto">
+        <div class="bg-primary-50 p-4 rounded-lg">
+          <div class="text-2xl font-bold text-primary-600">
+            {challenges.length}+
+          </div>
+          <div class="text-sm text-primary-800">Заданий</div>
+        </div>
+        <div class="bg-purple-50 p-4 rounded-lg">
+          <div class="text-2xl font-bold text-purple-600">3</div>
+          <div class="text-sm text-purple-800">Уровня</div>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+          <div class="text-2xl font-bold text-green-600">100%</div>
+          <div class="text-sm text-green-800">Бесплатно</div>
+        </div>
+      </div>
+
+      <!-- Кнопки действий -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <Button href={INTERNAL_LINKS.HOME} variant="primary" size="lg"> 🏠 На главную </Button>
+        <Button href={INTERNAL_LINKS.CHALLENGES} variant="outline" size="lg">
+          🎯 Все задания
+        </Button>
+      </div>
+
+      <!-- Декоративные элементы -->
+      <div class="mt-12 text-neutral-400">
+        <div class="flex justify-center space-x-2 mb-4">
+          <span class="animate-bounce">🔍</span>
+          <span class="animate-bounce delay-100">💻</span>
+          <span class="animate-bounce delay-200">🎯</span>
+        </div>
+        <p class="text-sm">Или используйте навигацию выше чтобы найти нужную страницу</p>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  /* Анимация для градиента */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .text-9xl {
+    animation: float 3s ease-in-out infinite;
+  }
+</style>

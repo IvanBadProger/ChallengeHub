@@ -1,78 +1,94 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ChallengeHeader from "../../components/challenges/ChallengeHeader.astro";
-import ChallengeMeta from "../../components/challenges/ChallengeMeta.astro";
-import ChallengeResources from "../../components/challenges/ChallengeResources.astro";
-import ChallengeNavigation from "../../components/challenges/ChallengeNavigation.astro";
-import type { Challenge } from "../../data/types";
-import type { ChallengesMeta, ChallengeResponseData } from "../api/types";
-import ChallengeSection from "../../components/challenges/ChallengeSection.astro";
+import Layout from '@/layouts/Layout.astro';
+import { Section, Container } from '@/components/kit';
+import { ChallengeHeader, ChallengeMeta, ChallengeNavigation } from './_components';
+import { ApiService } from '@/services/ApiService';
+import { ContentList } from '@/widgets';
+import { INTERNAL_LINKS, SITE_CONFIG } from '@/data/config';
 
-// Получаем ID из параметров
 const { id } = Astro.params;
 
 if (!id) {
-  throw new Error("Challenge ID is required");
+  throw new Error('Challenge ID is required');
 }
 
-// Формируем URL для API
-const baseUrl = import.meta.env.DEV
-  ? "http://localhost:4321"
-  : import.meta.env.SITE || "";
-const challengeUrl = `${baseUrl}/api/challenges/${id}.json`;
-const metaUrl = `${baseUrl}/api/challenges/meta.json`;
+const [challenge, meta] = await Promise.all([
+  ApiService.fetchChallenge(id),
+  ApiService.fetchMeta(),
+]);
 
-let challenge: Challenge;
-let meta: ChallengesMeta;
+const title = `${challenge.title} | ${SITE_CONFIG.name}`;
 
-try {
-  // Параллельные запросы
-  const [challengeResponse, metaResponse] = await Promise.all([
-    fetch(challengeUrl),
-    fetch(metaUrl),
-  ]);
-
-  const challengeResult: ChallengeResponseData = await challengeResponse.json();
-  const metaResult = await metaResponse.json();
-
-  if (!challengeResult.success || !challengeResult.data) {
-    throw new Error(challengeResult.error || "Challenge not found");
+const getDescription = () => {
+  if (challenge.description && challenge.description.trim().length > 0) {
+    return challenge.description.substring(0, 160);
   }
 
-  if (!metaResult.success) {
-    throw new Error("Failed to fetch meta data");
-  }
+  return `Задание "${challenge.title}" на платформе ${SITE_CONFIG.name}`;
+};
 
-  challenge = challengeResult.data;
-  meta = metaResult.data;
-} catch (error) {
-  console.error("API Error:", error);
-  throw new Error("Challenge not found");
-}
+const description = getDescription();
+
+const canonicalUrl = INTERNAL_LINKS.challenge(Number(id));
+const robots = 'index, follow';
 ---
 
-<Layout title={`${challenge.title} - Frontend Challenge`}>
-  <div class="max-w-4xl mx-auto space-y-8">
-    <ChallengeHeader {...challenge} />
+<Layout title={title} description={description} canonicalUrl={canonicalUrl} robots={robots}>
+  <!-- Заголовок задания -->
+  <ChallengeHeader {...challenge} />
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <!-- Контент задания -->
+  <Section>
+    <Container size="narrow" className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Основной контент -->
       <div class="md:col-span-2 space-y-6">
-        <ChallengeSection
-          title="Требования"
-          numbered
-          items={challenge.requirements}
-        />
-        <ChallengeSection title="Подсказки" numbered items={challenge.tips} />
+        <!-- Требования -->
+        <ContentList title="Требования" numbered={true}>
+          {
+            challenge.requirements.map((r) => (
+              <li>
+                <span class="text-neutral-800">{r}</span>
+              </li>
+            ))
+          }
+        </ContentList>
+
+        <!-- Подсказки -->
+        <ContentList title="Подсказки" numbered={true}>
+          {
+            challenge.tips.map((t) => (
+              <li>
+                <span class="text-neutral-800">{t}</span>
+              </li>
+            ))
+          }
+        </ContentList>
       </div>
 
+      <!-- Сайдбар -->
       <div class="space-y-6">
         <ChallengeMeta challenge={challenge} />
-        <ChallengeResources resources={challenge.resources} />
-        <ChallengeNavigation
-          currentId={Number(id)}
-          totalChallenges={meta.total}
-        />
+
+        <!-- Ресурсы -->
+        <ContentList title="📚 Ресурсы" numbered={false}>
+          {
+            challenge.resources.map(({ title, url }) => (
+              <li>
+                <a
+                  href={url}
+                  class="text-primary-600 hover:text-primary-800 text-sm block py-1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {title}
+                </a>
+              </li>
+            ))
+          }
+        </ContentList>
+
+        <ChallengeNavigation currentId={Number(id)} totalChallenges={meta.total} />
       </div>
-    </div>
-  </div>
+    </Container>
+  </Section>
 </Layout>
